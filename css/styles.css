@@ -103,7 +103,7 @@ footer .social-links img {
 }
 
 #content h1 {
-    font-family: 'Leckerli One', cursive
+    font-family: 'Leckerli One', cursive;
     font-size: 40px;
     text-shadow: 3px 3px #B1B1B1;
 }
