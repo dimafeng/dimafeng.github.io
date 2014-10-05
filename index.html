@@ -3,9 +3,6 @@ layout: default
 ---
 
 <div class="home">
-
-    <h1 class="page-heading">Posts</h1>
-
     {% for post in site.posts %}
 
     <div class="row">
@@ -23,6 +20,7 @@ layout: default
             <h2>
                 <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
             </h2>
+            {{ post.excerpt }}
         </div>
     </div>
     {% endfor %}
