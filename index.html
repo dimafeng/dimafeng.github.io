@@ -8,18 +8,23 @@ layout: default
 
     {% for post in site.posts %}
 
-    <div class="holder">
-        <div class="month green">
-            <p>{{ post.date | date: "%B"}}</p>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="holder">
+                <div class="month green">
+                    <p>{{ post.date | date: "%B"}}</p>
+                </div>
+                <div class="day">
+                    <p>{{ post.date | date: "%-d"}}</p>
+                </div>
+            </div>
         </div>
-        <div class="day">
-            <p>{{ post.date | date: "%-d"}}</p>
+        <div class="col-md-10" style="text-align: center;">
+            <h2>
+                <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+            </h2>
         </div>
     </div>
-
-    <h2>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-    </h2>
     {% endfor %}
 
     <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
