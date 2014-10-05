@@ -4,8 +4,16 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+My name is Dmitry. I’m professional software engineer.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+##Technical Expertise
+**Languages:** Java, JavaScript, Groovy
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+**Techniques:** TDD, Continuous Integration, codereview, design patterns, enterprise design patterns
+
+
+##Education
+**Master’s Degree** in Computer Science
+
+National Research University of Electronic Technology, Moscow, Russia.
+
