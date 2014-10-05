@@ -1,1 +1,109 @@
-.navbar-inner{text-align:center}.navbar .nav,.navbar .nav>li{float:none;display:inline-block;;;vertical-align:top}.navbar-inverse{background:url(../images/border-top.png);height:63px;border:none}@media (min-width:1200px){.container{max-width:970px}}body{background:#ecf0f1;font-family:Raleway,sans-serif;color:#2c3e50}html{position:relative;min-height:100%}header .logo{background:url(../images/red-bg.gif);height:500px;padding-top:70px}header .gotit{margin:0 auto;width:80px;position:relative;top:-60px;margin-bottom:-60px}header .code{background:url(../images/code.png);background-repeat:no-repeat}header .java{position:absolute;width:682px;left:10%;top:80px}footer{position:absolute;bottom:0;width:100%;height:300px;color:#fff;background:url(../images/blue-bg.gif)}footer .info h1{font-family:'Leckerli One',cursive;font-weight:400;font-size:1.6em;text-shadow:4px 4px 0 #666}footer .copy{background:url(../images/border-down.png);height:63px;text-align:center;padding-top:25px;position:absolute;bottom:0;width:100%}footer .social-links a{color:#fff;display:block;margin:2px}footer .social-links a:hover{text-decoration:none;color:#92c4e5}footer .social-links img{width:18px}#content{padding-bottom:340px}#content h1{font-family:'Leckerli One',cursive}
+.navbar-inner {
+    text-align: center
+}
+
+.navbar .nav, .navbar .nav > li {
+    float: none;
+    display: inline-block;
+    vertical-align: top
+}
+
+.navbar-inverse {
+    background: url(../images/border-top.png);
+    height: 63px;
+    border: none
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 970px
+    }
+}
+
+body {
+    background: #ecf0f1;
+    font-family: Raleway, sans-serif;
+    color: #2c3e50
+}
+
+html {
+    position: relative;
+    min-height: 100%
+}
+
+header .logo {
+    background: url(../images/red-bg.gif);
+    height: 500px;
+    padding-top: 70px
+}
+
+header .gotit {
+    margin: 0 auto;
+    width: 80px;
+    position: relative;
+    top: -60px;
+    margin-bottom: -60px
+}
+
+header .code {
+    background: url(../images/code.png);
+    background-repeat: no-repeat
+}
+
+header .java {
+    position: absolute;
+    width: 682px;
+    left: 10%;
+    top: 80px
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 300px;
+    color: #fff;
+    background: url(../images/blue-bg.gif)
+}
+
+footer .info h1 {
+    font-family: 'Leckerli One', cursive;
+    font-weight: 400;
+    font-size: 1.6em;
+    text-shadow: 4px 4px 0 #666
+}
+
+footer .copy {
+    background: url(../images/border-down.png);
+    height: 63px;
+    text-align: center;
+    padding-top: 25px;
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+
+footer .social-links a {
+    color: #fff;
+    display: block;
+    margin: 2px
+}
+
+footer .social-links a:hover {
+    text-decoration: none;
+    color: #92c4e5
+}
+
+footer .social-links img {
+    width: 18px
+}
+
+#content {
+    padding-bottom: 340px
+}
+
+#content h1 {
+    font-family: 'Leckerli One', cursive
+    font-size: 40px;
+    text-shadow: 3px 3px #B1B1B1;
+}
