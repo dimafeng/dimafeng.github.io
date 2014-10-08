@@ -35,6 +35,19 @@
             $('.java').css('top', (initialTop + ((scrollPosition / 2) | 0)) + "px");
             $('.code').css('background-position-y', ((scrollPosition / 2) | 0) + "px");
         });
+
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
     });
 </script>
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
