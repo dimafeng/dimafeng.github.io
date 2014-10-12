@@ -13,43 +13,43 @@ Here I started my experiments which produced following code.
 To recognize drag-and-drop gestures here we have *java.awt.dnd.DragSource*. Let's assume we need to have a draggable button on a frame.
 
 {% highlight java %}
-    JPanel panel = new JPanel();
-    JButton btn = new JButton("Draggable button");
-    
-    new DragSource().createDefaultDragGestureRecognizer(
-        btn,
-        DnDConstants.ACTION_COPY_OR_MOVE,
-        (DragGestureEvent event) -> {
-            event.startDrag(DragSource.DefaultLinkDrop, new TransferData());
-        });
-    
-    panel.add(btn);
-    add(panel);
+JPanel panel = new JPanel();
+JButton btn = new JButton("Draggable button");
+
+new DragSource().createDefaultDragGestureRecognizer(
+    btn,
+    DnDConstants.ACTION_COPY_OR_MOVE,
+    (DragGestureEvent event) -> {
+        event.startDrag(DragSource.DefaultLinkDrop, new TransferData());
+    });
+
+panel.add(btn);
+add(panel);
 {% endhighlight %}
 
 If you try to drag the button your cursor will be shown as a draggable action happens. *TransferData* represents the way of data transfer. And it could be
 some thing like that:
 
 {% highlight java %}
-    private static class TransferData implements Transferable {
+private static class TransferData implements Transferable {
 
-        private Gson gson = new Gson();
+    private Gson gson = new Gson();
 
-        public DataFlavor[] getTransferDataFlavors() {
-            return new DataFlavor[]{
-                    new DataFlavor(String.class, null)
-            };
-        }
-
-        public boolean isDataFlavorSupported(DataFlavor flavor) {
-            return true;
-        }
-
-        @Override
-        public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
-            return gson.toJson(Data.createRandomData());
-        }
+    public DataFlavor[] getTransferDataFlavors() {
+        return new DataFlavor[]{
+                new DataFlavor(String.class, null)
+        };
     }
+
+    public boolean isDataFlavorSupported(DataFlavor flavor) {
+        return true;
+    }
+
+    @Override
+    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+        return gson.toJson(Data.createRandomData());
+    }
+}
 {% endhighlight %}
 
 *getTransferDataFlavors* method tells *DragSource* which type of data will be transferred here.
@@ -61,30 +61,32 @@ There we need to define listeners for for 3 events: *dragover, dragenter, drop*.
 others actions and make this code work in all browsers, [Here](http://stackoverflow.com/questions/20354439/html5-drag-drop-e-stoppropagation) is briefly explanation why we need to do that.
 
 {% highlight javascript %}
-                $('#dropArea').on(
-                        'dragover',
-                        function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }
-                ).on(
-                        'dragenter',
-                        function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }
-                ).on(
-                        'drop',
-                        function(e){
-                            if(e.originalEvent.dataTransfer){
-                                e.preventDefault();
-                                e.stopPropagation();
-                                
-                                var data = JSON.parse(e.originalEvent.dataTransfer.getData('text'));
-                                //your stuff goes here
-                            }
-                        }
+$('#dropArea').on(
+        'dragover',
+        function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+).on(
+        'dragenter',
+        function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+).on(
+        'drop',
+        function(e){
+            if(e.originalEvent.dataTransfer){
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var data = JSON.parse(
+                    e.originalEvent.dataTransfer.getData('text')
                 );
+                //your stuff goes here
+            }
+        }
+);
 {% endhighlight %}
 
 Here we go. The working example you can find in my [github project with examples](https://github.com/dimafeng/dimafeng-examples/tree/master/drag-and-drop). 
