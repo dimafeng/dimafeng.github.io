@@ -12,7 +12,7 @@ Here I started my experiments which produced following code.
 
 To recognize drag-and-drop gestures here we have *java.awt.dnd.DragSource*. Let's assume we need to have a draggable button on a frame.
 
-```
+{% highlight java %}
     JPanel panel = new JPanel();
     JButton btn = new JButton("Draggable button");
     
@@ -25,12 +25,12 @@ To recognize drag-and-drop gestures here we have *java.awt.dnd.DragSource*. Let'
     
     panel.add(btn);
     add(panel);
-```
+{% endhighlight %}
 
 If you try to drag the button your cursor will be shown as a draggable action happens. *TransferData* represents the way of data transfer. And it could be
 some thing like that:
 
-```
+{% highlight java %}
     private static class TransferData implements Transferable {
 
         private Gson gson = new Gson();
@@ -50,7 +50,7 @@ some thing like that:
             return gson.toJson(Data.createRandomData());
         }
     }
-```
+{% endhighlight %}
 
 *getTransferDataFlavors* method tells *DragSource* which type of data will be transferred here.
 
@@ -60,7 +60,7 @@ Now we need to introduce the receiving side. It'll be a plain html page. The mos
 There we need to define listeners for for 3 events: *dragover, dragenter, drop*. It's important to call *preventDefault* and *stopPropagation* to prevent 
 others actions and make this code work in all browsers, [Here](http://stackoverflow.com/questions/20354439/html5-drag-drop-e-stoppropagation) is briefly explanation why we need to do that.
 
-```
+{% highlight javascript %}
                 $('#dropArea').on(
                         'dragover',
                         function (e) {
@@ -85,6 +85,6 @@ others actions and make this code work in all browsers, [Here](http://stackoverf
                             }
                         }
                 );
-```
+{% endhighlight %}
 
 Here we go. The working example you can find in my [github project with examples](https://github.com/dimafeng/dimafeng-examples/tree/master/drag-and-drop). 
