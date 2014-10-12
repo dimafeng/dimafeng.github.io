@@ -221,8 +221,8 @@ footer .social-links img {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcb49', endColorstr='#f8b500', GradientType=0);
 }
 
-.highlight { font-family: 'Source Code Pro', ; }
-.highlight .hll { background-color: #49483e }
+code, kbd, pre, samp { font-family: 'Source Code Pro',Menlo,Monaco,Consolas,"Courier New",monospace ; }
+.highlight { background: #333 }
 .highlight  { /*background: #272822;*/ color: #f8f8f2 }
 .highlight .c { color: #75715e } /* Comment */
 .highlight .err { color: #960050; background-color: #1e0010 } /* Error */
