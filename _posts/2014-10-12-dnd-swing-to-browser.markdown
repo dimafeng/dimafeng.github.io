@@ -46,7 +46,8 @@ private static class TransferData implements Transferable {
     }
 
     @Override
-    public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+    public Object getTransferData(DataFlavor flavor) 
+        throws UnsupportedFlavorException, IOException {
         return gson.toJson(Data.createRandomData());
     }
 }
@@ -61,20 +62,17 @@ There we need to define listeners for for 3 events: *dragover, dragenter, drop*.
 others actions and make this code work in all browsers, [Here](http://stackoverflow.com/questions/20354439/html5-drag-drop-e-stoppropagation) is briefly explanation why we need to do that.
 
 {% highlight javascript %}
-$('#dropArea').on(
-        'dragover',
+$('#dropArea').on('dragover',
         function (e) {
             e.preventDefault();
             e.stopPropagation();
         }
-).on(
-        'dragenter',
+).on('dragenter',
         function (e) {
             e.preventDefault();
             e.stopPropagation();
         }
-).on(
-        'drop',
+).on('drop',
         function(e){
             if(e.originalEvent.dataTransfer){
                 e.preventDefault();
