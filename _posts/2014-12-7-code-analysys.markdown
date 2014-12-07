@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Code analysis for 2 hours"
+title:  "Code analysis"
 categories: java, code analysis, code style
 ---
 This small post is going to tell you how do we check and control code quality in my company. I was a initiator of this approach and I want to show some cases which I implemented in scope of this problem.
