@@ -11,7 +11,7 @@ First time when we wanted to get some metrics of our code brought idea to check 
 
 ## Implementation
 
-I wrote small java application with does following things:
+I wrote small java application which does following things:
 
 1. Gets value from env variable **GIT_PREVIOUS_COMMIT** which is set by [git plugin][3]. Retrieves all commint which were pushed by developer. Retrieves all lines which were affected in pushed commits. Everything in this step uses standard git console utils like (git log, etc) 
 2. Analyzes affected files by [checkstyle][4] and [PMD][5]
