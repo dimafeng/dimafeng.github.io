@@ -111,6 +111,18 @@ footer .social-links img {
     font-family: 'Leckerli One', cursive;
 }
 
+@media (max-width: 1000px) {
+    .body-image {
+        display: none;
+    }
+    .about-container {
+        text-align: center;
+    }
+    footer .social-links a {
+        display: inline;
+    }
+}
+
 .holder {
     width: 82px;
     height: 94px;
