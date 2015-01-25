@@ -152,6 +152,8 @@ java -jar /root/apts/craigslist-1.0.jar >> /root/craigslist/log
 
 Developement with groovy is pretty fast and effective. I spended ~1 hour for full development and configuration. I didn't get any troubles during development and building jar file and I got what I wanted.
 
-![Resut email]({{ site.url }}/assets/craiglist.png)
+<p>
+<img src="{{ site.url }}/assets/craiglist.png" class="img-responsive">
+</p>
 
 [1]: http://www.jedox.com/en/send-email-using-javamail-groovy-script/
