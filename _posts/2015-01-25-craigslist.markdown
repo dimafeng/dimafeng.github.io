@@ -156,4 +156,7 @@ Developement with groovy is pretty fast and effective. I spended ~1 hour for ful
 <img src="{{ site.url }}/assets/craiglist.png" class="img-responsive">
 </p>
 
+All sources you can find in my [github profile][2] 
+
 [1]: http://www.jedox.com/en/send-email-using-javamail-groovy-script/
+[2]: https://github.com/dimafeng/craigslist
