@@ -357,3 +357,8 @@ h3 {
 #content p {
     margin: 0 0 30px;
 }
+
+.transparent {
+    opacity: 0.5;
+    transition: opacity 1s, visibility 1s;
+}

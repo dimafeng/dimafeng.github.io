@@ -34,6 +34,12 @@
             var scrollPosition = $(window).scrollTop();
             $('.java').css('top', (initialTop + ((scrollPosition / 2) | 0)) + "px");
             $('.code').css('background-position-y', ((scrollPosition / 2) | 0) + "px");
+
+            if(scrollPosition>0) {
+                $('.navbar').addClass('transparent');
+            } else {
+                $('.navbar').removeClass('transparent');
+            }
         });
 
         $('a[href*=#]:not([href=#])').click(function() {
