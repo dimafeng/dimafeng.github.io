@@ -10,3 +10,5 @@ github_username:  dimafeng
 
 # Build settings
 markdown: kramdown
+
+permalink: /blog/:year/:month/:day/:title/
