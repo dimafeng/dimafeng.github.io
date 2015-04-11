@@ -22,8 +22,13 @@
 
 body {
     background: #ecf0f1;
-    font-family: Raleway, sans-serif;
-    color: #2c3e50
+    font-family: 'Roboto', sans-serif;
+    color: #2c3e50;
+    font-size: 16px;
+}
+
+.post {
+    font-size: 18px;
 }
 
 html {
@@ -109,6 +114,7 @@ footer .social-links img {
 
 #content h1, #content h2, #content h3, #content h4 {
     font-family: 'Leckerli One', cursive;
+    text-shadow: 2px 2px #B1B1B1;
 }
 
 @media (max-width: 1000px) {
@@ -300,4 +306,21 @@ code, kbd, pre, samp { font-family: 'Source Code Pro',Menlo,Monaco,Consolas,"Cou
 
 pre code {
     color: #c7254e;
+}
+
+a {
+    color: #2C3E50;
+}
+
+a:hover {
+    color: #745252;
+    text-decoration: none;
+}
+
+.post-content a {
+    text-decoration: underline;
+    color: #000;
+}
+.post-content a:hover {
+    text-decoration: none;
 }
