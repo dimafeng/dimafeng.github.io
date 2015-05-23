@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "Docker essentials"
+categories: docker
+---
+This's not a complete article - it's a post with docker essential tips which you have to know if you to run some of your apps within docker enviroment. I'm going to uppend this article when I'll learn this system better. This's my first steps and I'll use my article as a reminder.
+
+## Docker installation
+
+Docker still dosn't have full support in mac os. Of course they have [Boot2Docker][2], but it's docker lauched within a VM. So, I prefer use my own VM running in VirtualBox on another machine. I use ubuntu. Installation on ubuntu linux looks as follows:
+
+{% highlight bash %}
+$ wget -qO- https://get.docker.com/ | sh
+{% endhighlight %}
+
+or you can use ubuntu repository:
+
+{% highlight bash %}
+$ sudo apt-get install docker.io
+{% endhighlight %}
+
+If you see error like that:
+
+{% highlight bash %}
+FATA[0000] Post http:///var/run/docker.sock/v1.17/images/create?fromImage=mongo%3Alatest: dial unix /var/run/docker.sock: no such file or directory
+{% endhighlight %}
+
+you just need to reboot server. 
+
+## Build your own container
+
+To build you own container you need to have `Dockerfile`. Go to the folder where your docker file is located. And execute this command:
+
+{% highlight bash %}
+$ sudo docker build -t [name] .
+{% endhighlight %}
+
+Useful parameters:
+
+* `-no-cache` - builds container avoiding cached steps. 
+
+## Run container
+
+After container building you can launch it. The command could be like this:
+
+{% highlight bash %}
+$ sudo docker run -it -p 8080:8080 --link my-mongo:mongo [name]
+{% endhighlight %}
+
+Useful parameters:
+
+* `-d` - run container in the background
+* `-p [container port]:[host port]` - open the exposed port on host machine
+* `--link [name or id]:[alias]` - allows a container to access another container speicified by `[name or id]` 
