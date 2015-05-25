@@ -52,3 +52,9 @@ Useful parameters:
 * `-d` - run container in the background
 * `-p [container port]:[host port]` - open the exposed port on host machine
 * `--link [name or id]:[alias]` - allows a container to access another container speicified by `[name or id]` 
+* `-v [host path]:[container path]` - external volume linking
+* `--restart="always"` - will restart your container after failure or system reboot 
+
+---
+
+*UPD: May 25, 2015*
