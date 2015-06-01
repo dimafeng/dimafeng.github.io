@@ -61,4 +61,4 @@ The second one may be like this:
 
 ---
 
-If you want to improve my scripts and share it with me you can send me pull request to [this repository][https://github.com/dimafeng/dimafeng-examples/tree/master/scripts].
+If you want to improve my scripts and share it with me you can send me pull request to [this repository](https://github.com/dimafeng/dimafeng-examples/tree/master/scripts).
