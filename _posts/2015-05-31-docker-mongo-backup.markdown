@@ -3,9 +3,9 @@ layout: post
 title:  "MongoDB backup within docker container"
 categories: docker, bash
 ---
-I'm working on my pet project. This's simple blog engine written in java 8 and using mongo as primery database. I was pretty excited about docker when I heard about it first time. Recentry I've written [small article]({% post_url 2015-05-22-docker1 %}) with docker essentials - it's a post with basic commands which I use every time when I need to do something with docker.
+I'm working on my pet project. This is simple blog engine written in java 8 and uses mongo as a primary database. I was pretty excited about docker when I heard about it the first time. Recentry I've written a [small article]({% post_url 2015-05-22-docker1 %}) with docker essentials - it's a post with basic commands which I use every time when I need to do something with docker.
 
-Today I'm going to share my scripts which I wrote to make and restore backup of mongo database. I was surprised that I didn't find anything similar on google. I hope that this could be helpfulf for somebody.
+Today I'm going to share my scripts which I wrote to make and restore backup of mongo database. I was surprised that I didn't find anything similar on google. I hope that this could be helpful for somebody.
 
 ## Backup
 
@@ -16,7 +16,7 @@ tar -cvf $2 -C /tmp/mongodump *
 rm -rf /tmp/mongodump
 {% endhighlight %}
 
-If you named you cantainer rather than `mongo` you need to change **link** parameter from `mongo:mongo` to `[name]:mongo`. Also you need to change variables `$MONGO_PORT_27017_TCP_ADDR` and `$MONGO_PORT_27017_TCP_PORT` in case if don't use default port (27017).
+If you name your container something other than `mongo` you need to change **link** parameter from `mongo:mongo` to `[name]:mongo`. Also if you don't use default port (27017), you need to change variables `$MONGO_PORT_27017_TCP_ADDR` and `$MONGO_PORT_27017_TCP_PORT`.
 
 Now you can use it as follows:
 
