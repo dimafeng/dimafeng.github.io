@@ -3,7 +3,7 @@ layout: post
 title:  "Craigslist ads monitoring with groovy"
 categories: groovy, gradle
 ---
-Recently I was looking for a new apartment in New York. Well known that first place where you need to start looking for something is craigslist. I didn't find any functionality which can send new ads by my criteria. I decided to write small script which could solve this problem. I've had some experience with groovy and wanted to refresh the memory.
+Recently, I was looking for a new apartment in New York. It's obvious that the first place where you need to start looking for something is craigslist. I didn't find any way to receive emails when somebody posts a new ad which has specific keywords and matches my filters. I decided to write a small script which could solve this problem. I've had some experience with groovy and wanted to refresh my memory.
 
 ##Let's get it started
 
