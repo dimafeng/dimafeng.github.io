@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Remember me with Sptring MVC and Mongo DB"
+title:  "Remember me with Spring framework and Mongo DB"
 categories: java, spring mvc, mongo db, spring security
 ---
 Today I'm going to show you how to impelement remember-me functionality for spring mvc. I'll use persistant tokens which
