@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Remember me with Sptring MVC and Mongo DB"
+categories: java, spring mvc, mongo db, spring security
+---
 Today I'm going to show you how to impelement remember-me functionality for spring mvc. I'll use persistant tokens which
 will be stored in mongodb (I work with mongo via spring data). This is useful approach when you start your application within a cluster. If one server is 
 down all clients will be redirected to another server, and this server can validate cookies using data of first server 
@@ -45,8 +50,10 @@ public interface TokenRepository extends MongoRepository<Token, String> {
 }
 {% endhighlight %}
 
+As you see it's 4 lines of code, and this code is simple. Btw, if you don't know what spring data is, these 2 classes are all what you need to work with a collection in mongo db.
+
 Now we can implement `PersistentTokenRepository`. This class isn't Repository in terms of spring data, it's interface
-from spring security and defines four methods for storing tokens. It could be implemented as follows:
+from spring security and defines four methods which helps manage and verify tokens. It could be implemented as follows:
 
 {% highlight java %}
 @Component
@@ -65,9 +72,9 @@ public class TokenService implements PersistentTokenRepository {
     }
 
     @Override
-    public void updateToken(String series, String tokenValue, Date lastUsed) {
+    public void updateToken(String series, String value, Date lastUsed) {
         Token token = repository.findBySeries(series);
-        repository.save(new Token(token.getId(), token.getUsername(), series, tokenValue, lastUsed));
+        repository.save(new Token(token.getId(), token.getUsername(), series, value, lastUsed));
     }
 
     @Override
@@ -85,18 +92,31 @@ public class TokenService implements PersistentTokenRepository {
 
 As you see, all operations with tokens go through our spring data repository. I think this code dosn't require any comments.
 
-The last step is connection our repository with spring security config:
+The last step is a connection of our repository with spring security config:
 
 {% highlight java %}
-		@Autowired
+	
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
+public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
     PersistentTokenRepository repository;
 		
-		@Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-							...
-                .and()
-                .rememberMe()
-                .tokenRepository(repository);
+		...
+        .and()
+        .rememberMe()
+        .tokenRepository(repository);
     }
+
+    ...
+}
 {% endhighlight %}
+
+This code allows configuring of Remember Me authentication. `tokenRepositor` methos takes our `repository` as a parameter. Also you can adjust some additional parameters, e.g. you can change value of `tokenValiditySeconds`.
+
+The working example you can find in my [pet project](https://github.com/dimafeng/cards/commit/6672abfa97636974162f48cc0a9e0c908c6e2a70)
