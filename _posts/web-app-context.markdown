@@ -9,4 +9,14 @@ Then we got a request to implement a web equevalent for the part of our swing in
 >
 >~[Wikipedia](https://en.wikipedia.org/wiki/Single-page_application#Thin_server_architecture)
 
-Honestly, we implemented not pure 'Thin server architecture', we left some login on the server. Anyway, we built API on top of spring mvc. 
+Honestly, we implemented not pure 'Thin server architecture', we left some login on the server. Anyway, we built API on top of spring mvc. The first try looked like:
+
+{% highlight java %}
+ServletHolder servlet = new ServletHolder(DispatcherServlet.class);
+servlet.setInitParameter("contextConfigLocation", "[context-configuration-location].xml");
+{% endhighlight %}
+
+
+
+
+
