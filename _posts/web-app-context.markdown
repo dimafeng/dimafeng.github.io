@@ -26,7 +26,9 @@ It's the original application context. I put all beans, including controllers, i
 
 ## WebApplicationContext
 
-I went deeply into spring framework's sources and figured that I need to use `[context-configuration-location].xml` to initialize a parent context and create new one xml config with all web related beans. First application context will be ClassPathXmlApplicationContext and second one should one which implements `WebApplicationContenxt`. I stared to read documentation about `WebApplicationContenxt` interface. The JavaDoc says:
+I went deeply into spring framework's sources and figured that I need to use `[context-configuration-location].xml` to initialize a parent context and create new one xml config with all web related beans. **ApplicationContext** is a root context for an entire application, it means that application should have only one root application context (application can have another **ApplicationContext**'s but they should have root one as a parent).
+
+In my case, root application context will be represented by ClassPathXmlApplicationContext and child one should one which implements `WebApplicationContenxt`. I stared to read documentation about `WebApplicationContenxt` interface. The JavaDoc says:
 
 >This interface adds a getServletContext() method to the generic ApplicationContext interface, and defines a well-known application attribute name that the root context must be bound to in the bootstrap process.
 >
@@ -34,13 +36,13 @@ I went deeply into spring framework's sources and figured that I need to use `[c
 >
 >~[JAVA DOC](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/WebApplicationContext.html)
 
-The main idea of this context structure is adding extra scopes like: "application", "globalSession", "request", "session". The application in general should look like that:
+The main idea of this context structure is binding each bean from web context to the appropriate servlet context. Also, we got extra scopes like: "application", "globalSession", "request", "session"; which aren't available in **ApplicationContext**.
 
 <p>
 <img src="{{ site.url }}/assets/webappcontext.png" class="img-responsive">
 </p>
 
-My case could be covered by `XmlWebApplicationContext`. I wrote it in this way:
+My case can be covered by `XmlWebApplicationContext`. I wrote it in this way:
 
 {% highlight java %}            
 ServletHandler springServletHandler = new ServletHandler();
@@ -52,3 +54,6 @@ DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
 ServletHolder servlet = new ServletHolder(dispatcherServlet);
 {% endhighlight %}
 
+Now it's working as expected.
+
+## Conclusion
