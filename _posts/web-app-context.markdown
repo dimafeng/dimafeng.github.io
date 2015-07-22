@@ -37,18 +37,18 @@ I went deeply into spring framework's sources and figured that I need to use `[c
 The main idea of this context structure is adding extra scopes like: "application", "globalSession", "request", "session". The application in general should look like that:
 
 <p>
-<img src="http://m2.img.srcdd.com/farm5/d/2012/1120/15/8AB82451C1D7C3B8658DBB80A2E9177A_B500_900_500_355.PNG" class="img-responsive">
+<img src="{{ site.url }}/assets/webappcontext.png" class="img-responsive">
 </p>
 
 My case could be covered by `XmlWebApplicationContext`. I wrote it in this way:
 
-{% highlight java %}
-            ServletHandler springServletHandler = new ServletHandler();
-            XmlWebApplicationContext context = new XmlWebApplicationContext();
-            context.setConfigLocations("classpath:[web-context-configuration-location].xml");
-            context.setParent(parent);
+{% highlight java %}            
+ServletHandler springServletHandler = new ServletHandler();
+XmlWebApplicationContext context = new XmlWebApplicationContext();
+context.setConfigLocations("classpath:[web-context-configuration-location].xml");
+context.setParent(parent);
 
-            DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
-            ServletHolder servlet = new ServletHolder(dispatcherServlet);
+DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+ServletHolder servlet = new ServletHolder(dispatcherServlet);
 {% endhighlight %}
 
