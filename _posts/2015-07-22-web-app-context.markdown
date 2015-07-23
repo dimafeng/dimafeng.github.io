@@ -62,4 +62,4 @@ Now it's working as expected.
 
 ## Conclusion
 
-In this article I described a not standard approach for contexts' initialization; it was required by the application architecture. In most cases, you should use initialization via **web.xml/WebApplicationInitializer** for web application, or regular **ApplicationContext** for stand-alone applications. Moreover, since [Spring Boot][http://projects.spring.io/spring-boot/] is released, you can get rid of all context initialization problems.
+In this article I described a not standard approach for contexts' initialization; it was required by the application architecture. In most cases, you should use initialization via **web.xml/WebApplicationInitializer** for web application, or regular **ApplicationContext** for stand-alone applications. Moreover, since [Spring Boot](http://projects.spring.io/spring-boot/) is released, you can get rid of all context initialization problems.
