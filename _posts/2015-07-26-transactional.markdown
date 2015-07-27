@@ -148,7 +148,7 @@ public class UserService {
 }
 {% endhighlight %}
 
-It runs in Spring Boot project with default configuration. You can check the source code of this benchmark out on [github](https://github.com/dimafeng/dimafeng-examples) (`gradlew transactional:run`). That's what I've got:
+It runs in Spring Boot project with the default configuration. You can check the source code of this benchmark out on [github](https://github.com/dimafeng/dimafeng-examples) (`gradlew transactional:run`). That's what I've got:
 
 <p>
 <img src="{{ site.url }}/assets/transactional.png" class="img-responsive">
