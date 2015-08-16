@@ -1,0 +1,163 @@
+---
+layout: post
+title:  "CGLIB: signer information does not match signer information of other classes"
+categories: spring framework, ClassLoader, CGLIB
+---
+Today I'm going to describe the solution for the issue [SPR-12833](https://jira.spring.io/browse/SPR-12833). The issue desctiption shows a subset of problems which you'll get using spring in signed enviroment. The good thing about it, you need to sign jars of your application in limited cases. One of those cases is you need to distribute your application to clients by Java Web Start. And the root cause of this problem is the fact that built-in CGLIB doesn't work properly in signed enviroment. If you start your from IDE all your classes aren't signed, and this is a problem for CGLIB. There is a class `org.springframework.cglib.core.ReflectUtils` and it uses `PROTECTION_DOMAIN` which was retrieved from *spring framework*'s jar (in our case, all classes in this jar are signed), while all classes in our project aren't signed until we pack it, sign, and distribute the application. Default classloader tries to compare certificates from *spring framework*'s classes with empty certificates list from project's classes, here we get `SecurityException`. This issue was solved in original CGLIB's repository on Jul 18, 2014 but wasn't merged into *spring framework*.
+
+If you try to use proxies without any tricks, most likely you will get something like this:
+
+<pre>
+Caused by: org.springframework.cglib.core.CodeGenerationException: java.lang.reflect.InvocationTargetException-->null
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:237)
+	at org.springframework.cglib.proxy.Enhancer.createHelper(Enhancer.java:377)
+	at org.springframework.cglib.proxy.Enhancer.createClass(Enhancer.java:317)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.createClass(ConfigurationClassEnhancer.java:137)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.enhance(ConfigurationClassEnhancer.java:109)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:400)
+	... 39 more
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at org.springframework.cglib.core.ReflectUtils.defineClass(ReflectUtils.java:384)
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:219)
+	... 44 more
+Caused by: java.lang.SecurityException: class "com.dimafeng.test.MyTest$Config$$EnhancerBySpringCGLIB$$aec0d6cc"'s signer information does not match signer information of other classes in the same package
+	at java.lang.ClassLoader.checkCerts(ClassLoader.java:895)
+	at java.lang.ClassLoader.preDefineClass(ClassLoader.java:665)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:758)
+	... 50 more
+</pre>
+
+*Spring framework* uses CGLIB proxy generation for 2 operation:
+* Java-based configuration using `@Configuration` annotation
+* AOP proxies without interface or proxies which are marked with `proxy-target-class="true"`
+
+## Java-based configuration
+
+This class of problems can be solved really easy. The first comment in [SPR-12833](https://jira.spring.io/browse/SPR-12833) says that if you use `@Component`-based annotations instead of `@Configuration`, spring won't generate CGLIB proxy.
+
+Quick example:
+
+{% highlight java %}
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = MyTest.Config.class)
+public class MyTest {
+
+    @Autowired
+    @Qualifier("myValue")
+    String value;
+
+    @Test
+    public void test()
+    {
+        assertEquals("test", value);
+    }
+
+    @Component
+    public static class Config
+    {
+        @Bean(name = "myValue")
+        public String myValue()
+        {
+            return "test";
+        }
+    }
+}
+{% endhighlight %}
+
+This simple test creates `ApplicationContext` from Java-based configuraion in `Config`. If you start it test will pass.
+
+## AOP proxies
+
+The quickest solution of this issue is usage of custom class loader. *Spring framework* alows to use your own instance of class loader for beans when you create your `ApplicationContext`. It may look like this:
+
+{% highlight java %}
+ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring.xml"}, false);
+context.setClassLoader(new UnsecureClassLoader());
+context.refresh();
+{% endhighlight %}
+
+It's important to pass `false` as a second parameter - we don't need to refresh context before a new class loader will be set. Now we can implement our `UnsecureClassLoader`. 
+
+{% highlight java %}
+/**
+ * ClassLoader with disabled signature checking
+ */
+public class UnsecureClassLoader extends ClassLoader
+{
+    public UnsecureClassLoader()
+    {
+        this(UnsecureClassLoader.class.getClassLoader());
+    }
+
+    public UnsecureClassLoader(ClassLoader classLoader)
+    {
+        super(classLoader);
+
+        try
+        {
+            /**
+             * Changing map with certificates from real one to map without elements.
+             * All system's attempts to add certificates to the map do nothing.
+             */
+            Field package2certs = ClassLoader.class.getDeclaredField("package2certs");
+            package2certs.setAccessible(true);
+            package2certs.set(this, new AbstractMap()
+            {
+
+                @Override
+                public Set<Entry> entrySet()
+                {
+                    return Collections.emptySet();
+                }
+
+                @Override
+                public Object put(Object key, Object value)
+                {
+                    return null;
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+}
+{% endhighlight %}
+
+Here we have a little bit magic. **That's why you don't need to include this code in production.** This works good for tests and dev enviroments when you use defaul class loader. Probably, this trick won't work in futher versions of java, if `ClassLoader` structure is changed. 
+
+What we've done here. First of all, it's important to set a parent class loader, it should be the class loader which is used during application start. In this case, classes will be validated in our class loader but will be stored in the parent. Then, we overide value of `package2certs` field - we should set map-mock insterad. If you look at `ClassLoader`'s sources, you'll see:
+
+{% highlight java %}
+private void checkCerts(String name, CodeSource cs) {
+        int i = name.lastIndexOf('.');
+        String pname = (i == -1) ? "" : name.substring(0, i);
+
+        Certificate[] certs = null;
+        if (cs != null) {
+            certs = cs.getCertificates();
+        }
+        Certificate[] pcerts = null;
+        if (parallelLockMap == null) {
+            synchronized (this) {
+                pcerts = package2certs.get(pname);
+                if (pcerts == null) {
+                    package2certs.put(pname, (certs == null? nocerts:certs));
+                }
+            }
+        } else {
+            pcerts = ((ConcurrentHashMap<String, Certificate[]>)package2certs).
+                putIfAbsent(pname, (certs == null? nocerts:certs));
+        }
+        if (pcerts != null && !compareCerts(pcerts, certs)) {
+            throw new SecurityException("class \""+ name +
+                 "\"'s signer information does not match signer information of other classes in the same package");
+        }
+    }
+{% endhighlight %}
+
+If `package2certs` always returns `null` we'll never get `SecurityException` and it's good in our case.
