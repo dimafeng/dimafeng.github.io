@@ -86,43 +86,34 @@ It's important to pass `false` as a second parameter - we don't need to refresh 
 /**
  * ClassLoader with disabled signature checking
  */
-public class UnsecureClassLoader extends ClassLoader
-{
-    public UnsecureClassLoader()
-    {
+public class UnsecureClassLoader extends ClassLoader {
+    public UnsecureClassLoader() {
         this(UnsecureClassLoader.class.getClassLoader());
     }
 
-    public UnsecureClassLoader(ClassLoader classLoader)
-    {
+    public UnsecureClassLoader(ClassLoader classLoader) {
         super(classLoader);
 
-        try
-        {
+        try {
             /**
              * Changing map with certificates from real one to map without elements.
              * All system's attempts to add certificates to the map do nothing.
              */
             Field package2certs = ClassLoader.class.getDeclaredField("package2certs");
             package2certs.setAccessible(true);
-            package2certs.set(this, new AbstractMap()
-            {
+            package2certs.set(this, new AbstractMap() {
 
                 @Override
-                public Set<Entry> entrySet()
-                {
+                public Set<Entry> entrySet() {
                     return Collections.emptySet();
                 }
 
                 @Override
-                public Object put(Object key, Object value)
-                {
+                public Object put(Object key, Object value) {
                     return null;
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
