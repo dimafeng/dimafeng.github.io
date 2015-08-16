@@ -3,7 +3,7 @@ layout: post
 title:  "CGLIB: signer information does not match signer information of other classes"
 categories: spring framework, ClassLoader, CGLIB
 ---
-Today I'm going to describe the solution for the issue [SPR-12833](https://jira.spring.io/browse/SPR-12833). The issue desctiption shows a subset of problems which you'll get using spring in signed enviroment. The good thing about it, you need to sign jars of your application in limited cases. One of those cases is you need to distribute your application to clients by Java Web Start. And the root cause of this problem is the fact that built-in CGLIB doesn't work properly in signed enviroment. If you start your from IDE all your classes aren't signed, and this is a problem for CGLIB. There is a class `org.springframework.cglib.core.ReflectUtils` and it uses `PROTECTION_DOMAIN` which was retrieved from *spring framework*'s jar (in our case, all classes in this jar are signed), while all classes in our project aren't signed until we pack it, sign, and distribute the application. Default classloader tries to compare certificates from *spring framework*'s classes with empty certificates list from project's classes, here we get `SecurityException`. This issue was solved in original CGLIB's repository on Jul 18, 2014 but wasn't merged into *spring framework*.
+Today I'm going to describe the solution for the issue [SPR-12833](https://jira.spring.io/browse/SPR-12833). The issue description says about a subset of problems which you'll get using spring in a signed environment. The good thing about it, you need to sign jars of your application in limited cases. One of those cases is you need to distribute your application to clients by Java Web Start. And the root cause of this problem is the fact that built-in CGLIB doesn't work properly in a signed environment. If you start your app from IDE all your classes aren't signed, and this is a problem for CGLIB. There is a class `org.springframework.cglib.core.ReflectUtils` and it uses `PROTECTION_DOMAIN` which was retrieved from *spring framework*'s jar (in our case, all classes in this jar are signed), while all classes in our project aren't signed until we pack it, sign, and distribute the application. Default classloader tries to compare certificates from *spring framework*'s classes with empty certificates list from project's classes, here we get `SecurityException`. This issue was solved in original CGLIB's repository on Jul 18, 2014, but wasn't merged into *spring framework*.
 
 If you try to use proxies without any tricks, most likely you will get something like this:
 
@@ -30,9 +30,10 @@ Caused by: java.lang.SecurityException: class "com.dimafeng.test.MyTest$Config$$
 	... 50 more
 </pre>
 
-*Spring framework* uses CGLIB proxy generation for 2 operation:
-* Java-based configuration using `@Configuration` annotation
-* AOP proxies without interface or proxies which are marked with `proxy-target-class="true"`
+*Spring framework* uses CGLIB proxy generation for 2 operations:
+
+* Java-based configuration using `@Configuration` annotation.
+* AOP proxies without interface or proxies which are marked with `proxy-target-class="true"`.
 
 ## Java-based configuration
 
@@ -67,11 +68,11 @@ public class MyTest {
 }
 {% endhighlight %}
 
-This simple test creates `ApplicationContext` from Java-based configuraion in `Config`. If you start it test will pass.
+This simple test creates `ApplicationContext` from the Java-based configuration in `Config`. If you start it test will pass.
 
 ## AOP proxies
 
-The quickest solution of this issue is usage of custom class loader. *Spring framework* alows to use your own instance of class loader for beans when you create your `ApplicationContext`. It may look like this:
+The quickest solution of this issue is a usage of a custom class loader. *Spring framework* allows to use your own instance of the class loader for beans when you create your `ApplicationContext`. It may look like this:
 
 {% highlight java %}
 ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring.xml"}, false);
@@ -128,9 +129,9 @@ public class UnsecureClassLoader extends ClassLoader
 }
 {% endhighlight %}
 
-Here we have a little bit magic. **That's why you don't need to include this code in production.** This works good for tests and dev enviroments when you use defaul class loader. Probably, this trick won't work in futher versions of java, if `ClassLoader` structure is changed. 
+Here we have a little bit magic. **That's why you don't need to include this code in production.** This works well for tests and dev environment when you use a default class loader. Probably, this trick won't work in next versions of java, if `ClassLoader` structure is changed. 
 
-What we've done here. First of all, it's important to set a parent class loader, it should be the class loader which is used during application start. In this case, classes will be validated in our class loader but will be stored in the parent. Then, we overide value of `package2certs` field - we should set map-mock insterad. If you look at `ClassLoader`'s sources, you'll see:
+What we've done here. First of all, it's important to set a parent class loader, it should be the class loader which is used during application start. In this case, classes will be validated in our class loader but will be stored in the parent. Then, we override value of `package2certs` field - we should set map-mock instead. If you look at `ClassLoader`'s sources, you'll see:
 
 {% highlight java %}
 private void checkCerts(String name, CodeSource cs) {
