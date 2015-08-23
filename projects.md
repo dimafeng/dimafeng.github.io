@@ -12,6 +12,6 @@ permalink: /projects/
 * **Mobile Application:** Ionic Framework, angular services are shared with Front-end
 
 <img width="300" src="https://github.com/dimafeng/cards/raw/master/doc/8oxf2VRqhH.gif" />
-<img height="218" src="https://github.com/dimafeng/cards/raw/master/doc/GoHASl1quC.gif />
+<img height="218" src="https://github.com/dimafeng/cards/raw/master/doc/GoHASl1quC.gif" />
 
 Open-sourced: [GitHub project](https://github.com/dimafeng/cards)
