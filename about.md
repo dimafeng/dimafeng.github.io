@@ -4,16 +4,12 @@ title: About
 permalink: /about/
 ---
 
-My name is Dmitry. I’m professional software engineer.
+My name is Dmitry. I'm a professional software engineer with more than **5 years** of production experience. Code is my passion. I hold a master's degree in **CS**.
 
-##Technical Expertise
-**Languages:** Java, JavaScript, Groovy
+Currently I'm located in **Greater New York**. You can hire me for small or big project, for consultation or problem-solving on hourly basis. Sorry, but I'm not looking for a full-time position.
 
-**Techniques:** TDD, Continuous Integration, codereview, design patterns, enterprise design patterns
+##Main Technical Expertise and Interests
 
+JVM-based tech stack, Javascript, functional programming (FP) approaches, TDD, Continuous Integration, codereview, design patterns.
 
-##Education
-**Master’s Degree** in Computer Science
-
-National Research University of Electronic Technology, Moscow, Russia.
-
+You can get example of my code on my [GitHub profile](https://github.com/dimafeng)
