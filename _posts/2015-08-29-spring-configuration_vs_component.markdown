@@ -8,42 +8,42 @@ It's official [suggestion from spring team](https://jira.spring.io/browse/SPR-12
 
 >That said, there is a 'lite' mode of @Bean processing where we don't apply any CGLIB processing: simply declare your @Bean methods on classes not annotated with @Configuration (but typically with another Spring stereotype instead, e.g. @Component). As long as you don't do programmatic calls between your @Bean methods, this is going to work just as fine.
 
-Simple saying, contexts configured with these two condfigurations are acting totally differently:
+Simple saying, contexts configured with these two condfigurations are acting totally different:
 
 {% highlight java %}
-    @Configuration
-    public static class Config {
+@Configuration
+public static class Config {
 
-        @Bean
-        public SimpleBean simpleBean()
-        {
-            return new SimpleBean();
-        }
-
-        @Bean
-        public SimpleBeanConsumer simpleBeanConsumer()
-        {
-            return new SimpleBeanConsumer(simpleBean());
-        }
+    @Bean
+    public SimpleBean simpleBean()
+    {
+        return new SimpleBean();
     }
+
+    @Bean
+    public SimpleBeanConsumer simpleBeanConsumer()
+    {
+        return new SimpleBeanConsumer(simpleBean());
+    }
+}
 {% endhighlight %}
 
 {% highlight java %}
-    @Component
-    public static class Config {
-
-        @Bean
-        public SimpleBean simpleBean()
-        {
-            return new SimpleBean();
-        }
-
-        @Bean
-        public SimpleBeanConsumer simpleBeanConsumer()
-        {
-            return new SimpleBeanConsumer(simpleBean());
-        }
+@Component
+public static class Config {
+    
+    @Bean
+    public SimpleBean simpleBean()
+    {
+        return new SimpleBean();
     }
+    
+    @Bean
+    public SimpleBeanConsumer simpleBeanConsumer()
+    {
+        return new SimpleBeanConsumer(simpleBean());
+    }
+}
 {% endhighlight %}
 
 The first piece of code works fine, and as expected, `SimpleBeanConsumer` will get a link to singleton `SimpleBean`.
@@ -60,24 +60,23 @@ The second piece of code, `new SimpleBeanConsumer(simpleBean())`, just calls a p
 To solve the second example, we can use something like that:
 
 {% highlight java %}
-    @Component
-    public static class Config {
+@Component
+public static class Config {
+    @Autowired
+    SimpleBean simpleBean;
 
-        @Autowired
-        SimpleBean simpleBean;
-
-        @Bean
-        public SimpleBean simpleBean()
-        {
-            return new SimpleBean();
-        }
-
-        @Bean
-        public SimpleBeanConsumer simpleBeanConsumer()
-        {
-            return new SimpleBeanConsumer(simpleBean);
-        }
+    @Bean
+    public SimpleBean simpleBean()
+    {
+        return new SimpleBean();
     }
+    
+    @Bean
+    public SimpleBeanConsumer simpleBeanConsumer()
+    {
+        return new SimpleBeanConsumer(simpleBean);
+    }
+}
 {% endhighlight %}
 
 All code examples for this post can be found in [my GitHub profile](https://github.com/dimafeng/dimafeng-examples/tree/master/spring-config).
