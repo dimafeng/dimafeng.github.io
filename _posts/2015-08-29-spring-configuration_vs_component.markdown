@@ -15,14 +15,12 @@ Simple saying, contexts configured with these two condfigurations are acting tot
 public static class Config {
 
     @Bean
-    public SimpleBean simpleBean()
-    {
+    public SimpleBean simpleBean() {
         return new SimpleBean();
     }
 
     @Bean
-    public SimpleBeanConsumer simpleBeanConsumer()
-    {
+    public SimpleBeanConsumer simpleBeanConsumer() {
         return new SimpleBeanConsumer(simpleBean());
     }
 }
@@ -33,14 +31,12 @@ public static class Config {
 public static class Config {
     
     @Bean
-    public SimpleBean simpleBean()
-    {
+    public SimpleBean simpleBean() {
         return new SimpleBean();
     }
     
     @Bean
-    public SimpleBeanConsumer simpleBeanConsumer()
-    {
+    public SimpleBeanConsumer simpleBeanConsumer() {
         return new SimpleBeanConsumer(simpleBean());
     }
 }
@@ -66,14 +62,12 @@ public static class Config {
     SimpleBean simpleBean;
 
     @Bean
-    public SimpleBean simpleBean()
-    {
+    public SimpleBean simpleBean() {
         return new SimpleBean();
     }
     
     @Bean
-    public SimpleBeanConsumer simpleBeanConsumer()
-    {
+    public SimpleBeanConsumer simpleBeanConsumer() {
         return new SimpleBeanConsumer(simpleBean);
     }
 }
