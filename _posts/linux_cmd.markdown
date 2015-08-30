@@ -18,3 +18,6 @@ x --- extract (restore) the contents of the tar file.
 f --- specifies the filename (which follows the f) used to tar into or to tar out from; see the examples below.
 z --- use zip/gzip to compress the tar file or to read from a compressed tar file.
 v --- verbose output, show, e.g., during create or extract, the files being stored into or restored from the tar file.
+
+
+http://files.fosswire.com/2007/08/fwunixref.pdf
