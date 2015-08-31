@@ -1,6 +1,5 @@
 I've always been curious about how cool programmers use **vim** so efficient. Many screencasts and videos from conferences
-show that some programmers prefer vim over real IDEs. I decided to master **vim**, there should be something charming - 
-so many peope can't be wrong. So, let's get it started.
+show that some programmers prefer vim over real IDEs. I decided to master **vim**, there should be something charming - so many peope can't be wrong. Here is [21 Reasons to Learn Vim][1]. So, let's get it started.
 
 ##Vim in 5 sec
 
@@ -18,3 +17,5 @@ I started to poke aroud and realized that there is no one source which can descr
 
 
 to this:
+
+[1]: http://www.jovicailic.org/2014/08/why-vim-21-reasons-to-learn-vim/
