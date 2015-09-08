@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Vim essentials (Part 1)"
+categories: vim
+---
 I've always been curious about how cool programmers use **vim** so efficient. Many screencasts and videos from conferences
 show that some programmers prefer vim over real IDEs. I decided to master **vim**, there should be something charming - so many peope can't be wrong. Here is [21 Reasons to Learn Vim][1]. So, let's get it started.
 
@@ -14,7 +19,11 @@ The only thing you should now is: hit <kbd>Esc</kbd> and `:q!`
 
 I started to poke aroud and realized that there is no one source which can describe how to do something like that:
 
-Ok, we're motivated to do something cool. I'm using **MacOS** and **iTerm2**, even though vim is a crossplatform solution, this article aims to cover MacOS and iTerm in a few steps in the instruction   , first of all, we need to update default **vim** 7.3 to 7.4. We could use `brew install vim` but for macos, there is a better way - using macvim. **Macvim** is a latest vim compiled with proper flags. It adds a few benifits like cliapboard sharing. 
+<p>
+<img img="{{ site.url }}/assets/vim/my.png" />
+</p>
+
+Ok, we're motivated to do something cool. Even though, vim is a crossplatform solution, this article aims to cover MacOS and iTerm2. I like this stack and use it all time. So, first of all, we need to update default **vim** 7.3 to 7.4. We could use `brew install vim` but for macos, there is a better way - using macvim. **Macvim** is a latest vim compiled with proper flags. It adds a few benifits like system cliapboard support. 
 
 {% highlight bash %}
 $ brew install macvim
@@ -64,9 +73,13 @@ set smartindent     "Automatically inserts indentation in some cases
 set cindent         "Like smartindent, but stricter and more customisable
 {% endhighlight %}
 
+## Plugins Installation
+
 Now we can add some plugins to extend standard view and functionality. I found an awesome site with a catalog of all available plugins [http://vimawesome.com/][3]. The plugin installation is really simple. You need to copy the string which looks like `Plugin '***/***'` and paste it to `~/.vimrc` bellow the line with text `"Plugins go here`. After that, you may install all plugins: open vim, and type `:PluginInstall`.
 
-<img
+<p>
+<img img="{{ site.url }}/assets/vim/plugin-install.gif" />
+</p>
 
 Let's start with essentials.
 
@@ -80,11 +93,16 @@ Plugin 'scrooloose/nerdtree'
 
 This is essential plugin which hepls to work with project tree.
 
-[Page][https://github.com/scrooloose/nerdtree]
+[Page](https://github.com/scrooloose/nerdtree)
 
-[NERDTree][img]
+<p>
+<img img="{{ site.url }}/assets/vim/nerdtree.gif" />
+</p>
 
-To make it more conviniet, you can add `map <F5> :NERDTreeToggle<CR>` to your `~/.vimrc`
+**A few tips and trick:**
+
+* To make it more conviniet, you can add `map <F5> :NERDTreeToggle<CR>` to your `~/.vimrc`. It allows you to show NERDTree by hitting <kbd>F5</kbd>;
+* Hit `r` to refresh file tree.
 
 ### ctrlp.vim
 
@@ -94,7 +112,11 @@ To make it more conviniet, you can add `map <F5> :NERDTreeToggle<CR>` to your `~
 Plugin 'kien/ctrlp.vim'
 {% endhighlight %}
 
-[Page][https://github.com/kien/ctrlp.vim]
+[Page](https://github.com/kien/ctrlp.vim)
+
+<p>
+<img img="{{ site.url }}/assets/vim/crtlp.gif" />
+</p>
 
 ### Fugitive
 
@@ -104,11 +126,11 @@ This plugin helps you to manage git from vim.
 Plugin 'tpope/vim-fugitive'
 {% endhighlight %}
 
-[Page][https://github.com/tpope/vim-fugitive]
+[Page](https://github.com/tpope/vim-fugitive)
 
 ### Airline
 
-Airline is a customizible status and tabline. 
+Airline is a customizible statusbar and tabline. 
 
 <p>
 <img src="https://github.com/bling/vim-airline/wiki/screenshots/demo.gif"/>
@@ -133,18 +155,20 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 {% endhighlight %}
 
-We just did basic configuration of airline. It's almost done, but you'll have font issues. To solve them, you need to checkout [powerline/fonts][https://github.com/powerline/fonts] and run `./install.sh`. The next step is **iTerm2** configuration - go to *Preferences* -> *Profiles* -> *Text* and set **Regular Font** and **Non-ASCII Font** to `Inconsolata-g for Powerline`.
+We just did basic configuration of airline. It's almost done, but you'll have font issues. To solve them, you need to checkout [powerline/fonts](https://github.com/powerline/fonts) and run `./install.sh`. The next step is **iTerm2** configuration - go to *Preferences* -> *Profiles* -> *Text* and set **Regular Font** and **Non-ASCII Font** to `Inconsolata-g for Powerline`.
 
-<img >
+<p>
+<img img="{{ site.url }}/assets/vim/iterm-conf.png" />
+</p>
 
 ## Theme
 
-By default, vim inherits system colours and it doesn't look too awesome. To change it, there are hundreds of themes. I used [vimcolors.com][http://vimcolors.com/] to pick a theme. 
+By default, vim inherits system colours and it doesn't look too awesome. To change it, there are hundreds of themes. I used [vimcolors.com](http://vimcolors.com/) to pick a theme. 
 
 The installation process is simple. Pick a theme and go to its github page. Copy the author name and project name and paste to `~/.vimrc` 
 
 {% highlight vim %}
-Plugin 'demorose/up.vim
+Plugin 'demorose/up.vim'
 {% endhighlight %}
 
 Then, you need to add this line to apply theme:
@@ -152,6 +176,12 @@ Then, you need to add this line to apply theme:
 {% highlight vim %}
 colorscheme [theme_name]
 {% endhighlight %}
+
+## Summary
+
+In this article, I described all steps which I went through to make a vim view look more than a simple text editor. 
+I mentioned only a few plugins out of hundreds, but it's extremely easy to find and install new ones by yourself. The next part of this article is going to collect all
+essensial shortcuts and commands which you should know to be productive in vim.
 
 [1]: http://www.jovicailic.org/2014/08/why-vim-21-reasons-to-learn-vim/
 [2]: https://github.com/VundleVim/Vundle.vim
