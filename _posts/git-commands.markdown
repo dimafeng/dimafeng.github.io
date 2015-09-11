@@ -8,6 +8,10 @@ git reset --hard
 # Remove all untracked files and directories.
 git clean -fd
 
+# Revert changes in specific file
+
+git checkout HEAD file/to/restore
+
 ## Git stash
 
 git stash
