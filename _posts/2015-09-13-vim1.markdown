@@ -117,7 +117,7 @@ Plugin 'kien/ctrlp.vim'
 <kbd>Ctrl</kbd>+<kbd>p</kbd> shows panel like that: 
 
 <p>
-<img src="{{ site.url }}/assets/vim/crtlp.gif" />
+<img src="{{ site.url }}/assets/vim/ctrlp.gif" />
 </p>
 
 ### Fugitive

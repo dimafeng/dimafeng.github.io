@@ -31,6 +31,10 @@ body {
     font-size: 1.3em;
 }
 
+.post img {
+    width: 100%;
+}
+
 html {
     position: relative;
     min-height: 100%
