@@ -59,6 +59,7 @@ This is basic vim configuration. Now we are able to modify it to customize vim v
 
 * `set mouse=a` allows you to work with vim using your mouse; 
 * `set number` shows line numbers;
+* `set relativenumber` another cool setting which can show line numbers relative to the line you are currently on; This setting can be combined with `set number`. In this case, current line will have absolute value, but all others relative.
 * `set clipboard=unnamed` helps to work with MacOS clipboard using `y`;
 * A few options to manage indentation:
 
@@ -162,6 +163,21 @@ We just did basic configuration of airline. It's almost done, but you'll have fo
 <p>
 <img src="{{ site.url }}/assets/vim/iterm-conf.png" />
 </p>
+
+### Easymotion
+
+>EasyMotion provides a much simpler way to use some motions in vim. It takes the <number> out of <number>w or <number>f{char} by highlighting all possible choices and allowing you to press one key to jump directly to the target.
+
+{% highlight vim %}
+Plugin 'easymotion/vim-easymotion'
+{% endhighlight %}
+
+[Page](https://github.com/easymotion/vim-easymotion)
+
+<p>
+<img src="https://camo.githubusercontent.com/d5f800b9602faaeccc2738c302776a8a11797a0e/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f333739373036322f323033393335392f61386539333864362d383939662d313165332d383738392d3630303235656138333635362e676966" />
+</p>
+
 
 ## Theme
 
