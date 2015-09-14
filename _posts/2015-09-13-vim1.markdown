@@ -17,7 +17,7 @@ The only thing you shouldi know is: hit <kbd>Esc</kbd> and `:q!`
 
 ##How to start
 
-I started to poke arouind and realized that there is no one source which can describe how to do something like that:
+I started to poke around and realized that there is no one source which can describe how to do something like that:
 
 <p>
 <img src="{{ site.url }}/assets/vim/my.png" />
