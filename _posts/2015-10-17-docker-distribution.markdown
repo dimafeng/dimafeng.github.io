@@ -24,7 +24,7 @@ docker save [image name] | gzip > [output file]
 And then you can upload this image to the server. This works pretty good except one thing, this way requres you to copy
 all image layers. It means even small change in your application will produce full image re-upload including base image.
 
-## How to us docker-compose
+## Docker-compose
 
 My pet project is represented by two containers: java app + mongo database. When I put everything into docker 
 the **docker-compose** hadn't been released and I had to have bash script which describes all steps of containers' start.
