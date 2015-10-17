@@ -107,7 +107,7 @@ build.sh [user]@[server host]
 {% endhighlight %}
 
 What it does? It's simple, first of all, we need to build new version of the image and export it into an archive.
-Then we need to transferr it to the server as well as additional scripts and `docker-compose.yml`. Now we're ready to
+Then we need to transfer it to the server as well as additional scripts and `docker-compose.yml`. Now we're ready to
 continue working on server. Here we need to remove old version of container and restart everyting. That's it.
 
 ## Backing up
