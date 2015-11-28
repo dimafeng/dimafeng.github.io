@@ -191,3 +191,5 @@ disabled.
 </pre>
 
 All examples from this blog post you can find [here in my github profile](https://github.com/dimafeng/dimafeng-examples/tree/master/dynamic-bean-def).
+
+**UPD**: Right after I posted the blog post I found out that there's the interface `BeanDefinitionRegistryPostProcessor` exactly for this type of BeanFactory modification since Spring 3.0.1. It seems it's a preferable interface to use and code snippet described in the post can be used as it is with this interface.
