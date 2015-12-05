@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: hipster
 title:  "Thoughts on Docker, docker-compose and life without registry"
 categories: docker, mongo db
 ---

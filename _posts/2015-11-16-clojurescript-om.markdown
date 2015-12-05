@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: hipster
 title:  "ClojureScript: Real world app"
 categories: clojurescript, om, react.js
 ---

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: hipster
 title:  "Craigslist ads monitoring with groovy"
 categories: groovy, gradle
 ---

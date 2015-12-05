@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: hipster
 title:  "Clojure Hello World"
 categories: clojure
 ---

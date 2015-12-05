@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: hipster
 title:  "Vim essentials (Part 1)"
 categories: vim
 ---

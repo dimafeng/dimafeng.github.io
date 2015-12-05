@@ -1,12 +1,14 @@
 ---
-layout: page
+layout: main
 title: About
 permalink: /about/
 ---
 
+<h1>About</h1>
+
 My name is Dmitry. I'm a professional software engineer with more than **5 years** of production experience. Code is my passion. I hold a master's degree in **CS**.
 
-Currently I'm located in **Greater New York**. You can hire me for small or big project, for consultation or problem-solving on hourly basis. Sorry, but I'm not looking for a full-time position.
+Currently I'm located in **Greater New York** area. You can hire me for small or big project, for consultation or problem-solving on hourly basis. Sorry, but I'm not looking for a full-time position.
 
 ##Main Technical Expertise and Interests
 
