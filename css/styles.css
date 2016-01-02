@@ -255,15 +255,15 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: 2.2em;
 }
 
 h2 {
-    font-size: 1.5em;
+    font-size: 1.8em;
 }
 
 h3 {
-    font-size: 1.3em;
+    font-size: 1.4em;
 }
 
 .articles-list li {
@@ -298,6 +298,7 @@ blockquote {
     padding: 20px;
     font-size: 1em;
     color: rgb(171, 91, 91);
+    margin-bottom: 10px;
 }
 
 #content .disclaimer h1 {

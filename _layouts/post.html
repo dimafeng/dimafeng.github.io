@@ -3,6 +3,12 @@ layout: default
 ---
 <div class="post">
 
+  {% if page.image %}
+  <div style="text-align: center;">
+    <img src="/assets/{{page.image}}">
+  </div>
+  {% endif %}
+
   <div class="post-header">
       <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
     <h1 class="post-title">{{ page.title }}</h1>
