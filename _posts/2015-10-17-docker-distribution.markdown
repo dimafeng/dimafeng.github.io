@@ -1,20 +1,20 @@
 ---
-layout: hipster
+layout: devops
 title:  "Thoughts on Docker, docker-compose and life without registry"
 categories: docker, mongo db
 ---
 Not long ago, I wrote two articles about docker usage ([one](/2015/05/22/docker1/),
-[two](/2015/05/31/docker-mongo-backup/)), now it's time for third one. I've been using docker for several months and 
-I've got new thoughts on this technology. It's fair to say that docker didn't have rich tooling, 
-now it's getting better but it's still not ideal. I had problems with container deployment, container data backups 
+[two](/2015/05/31/docker-mongo-backup/)), now it's time for third one. I've been using docker for several months and
+I've got new thoughts on this technology. It's fair to say that docker didn't have rich tooling,
+now it's getting better but it's still not ideal. I had problems with container deployment, container data backups
 and etc. In this blog post, I'll show you how I use docker for my pet-project.
 
 ## Docker registry replacement
 
-The standard way of container distribution is usage of docker registry. This technique looks like a version 
-control system e.g. svn. It means that you can push the current state of the image to a server and 
-then a target machine may just pull it from there. Sounds good, but not in case of personal use - 
-I don't want to have my own docker registry as well as support of this infrastructure. To solve this problem, 
+The standard way of container distribution is usage of docker registry. This technique looks like a version
+control system e.g. svn. It means that you can push the current state of the image to a server and
+then a target machine may just pull it from there. Sounds good, but not in case of personal use -
+I don't want to have my own docker registry as well as support of this infrastructure. To solve this problem,
 we can use image export functionality. You can do it in this way:
 
 {% highlight bash %}
@@ -26,7 +26,7 @@ all image layers. It means even small change in your application will produce fu
 
 ## Docker-compose
 
-My pet project is represented by two containers: java app + mongo database. When I put everything into docker 
+My pet project is represented by two containers: java app + mongo database. When I put everything into docker
 the **docker-compose** hadn't been released and I had to have bash script which describes all steps of containers' start.
 But now I don't need to do it anymore.
 
@@ -112,7 +112,7 @@ continue working on server. Here we need to remove old version of container and 
 
 ## Backing up
 
-Unfortunately, since my previous post, there weren't big changes in this process. There is a 
+Unfortunately, since my previous post, there weren't big changes in this process. There is a
 [thread on StackOverFlow](http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker)
 about this problem and it's sad. That's why I stay with backing up process described in [this post](/2015/05/31/docker-mongo-backup/).
 

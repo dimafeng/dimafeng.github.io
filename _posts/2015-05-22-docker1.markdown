@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: devops
 title:  "Docker essentials"
 categories: docker
 ---
@@ -25,7 +25,7 @@ If you see an error like this:
 FATA[0000] Post http:///var/run/docker.sock/v1.17/images/create?fromImage=mongo%3Alatest: dial unix /var/run/docker.sock: no such file or directory
 {% endhighlight %}
 
-you just need to reboot a server. 
+you just need to reboot a server.
 
 ## Build your own container
 
@@ -37,7 +37,7 @@ $ sudo docker build -t [name] .
 
 Useful parameters:
 
-* `-no-cache` - builds container avoiding cached steps. 
+* `-no-cache` - builds container avoiding cached steps.
 
 ## Run container
 
@@ -51,9 +51,9 @@ Useful parameters:
 
 * `-d` - runs container in the background
 * `-p [container port]:[host port]` - opens the exposed port on an host machine
-* `--link [name or id]:[alias]` - allows a container to access another container speicified by `[name or id]` 
+* `--link [name or id]:[alias]` - allows a container to access another container speicified by `[name or id]`
 * `-v [host path]:[container path]` - for external volume linking
-* `--restart="always"` - restarts your container after a failure or a system reboot 
+* `--restart="always"` - restarts your container after a failure or a system reboot
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: devops
 title:  "MongoDB backup within docker container"
 categories: docker, bash
 ---
