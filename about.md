@@ -8,8 +8,6 @@ permalink: /about/
 
 My name is Dmitry. I'm a professional software engineer with more than **5 years** of production experience. Code is my passion. I hold a master's degree in **CS**.
 
-You can hire me for small or big project, for consultation or problem-solving on hourly basis. Sorry, but I'm not looking for a full-time position.
-
 ##Main Technical Expertise and Interests
 
 JVM-based tech stack, Javascript, functional programming (FP) approaches, TDD, Continuous Integration, codereview, design patterns.
