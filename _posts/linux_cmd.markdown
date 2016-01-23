@@ -21,3 +21,6 @@ v --- verbose output, show, e.g., during create or extract, the files being stor
 
 
 http://files.fosswire.com/2007/08/fwunixref.pdf
+
+--- apt-cache show PACKAGE_NAME
+---apt-cache search PACKAGE_NAME
