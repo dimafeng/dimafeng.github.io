@@ -189,6 +189,16 @@ First what you need to look at (1). This annotation defines all the configuratio
 
 ## Conclusion
 
+I've been writing tests using ScalaTest for about 3 weeks and probably didn't get all the beauty of this approach.
+What I like about it:
+* Self-descriptive test cases, they are readable and maitanable.
+* Assertions and some matchers. I like writing `assert(value == 2)` and `assert(result.size > 10)`, it's concise and produce nice output as a result.
+
+What I don't like:
+* Verbosity in specification. When I use just one annotation `@Test` in jUnit test, here I have to add one annotation, a bunch of traits and register name of the subject.
+* Complex matchers with DSL. I'm not big fan of DSLs especially whey they make my code look like poem and I don't want to learn new launguage inside launguage. This point is very subjective, so you can ignore it if you like DSL.
+* 
+
 [1]: /2016/01/02/scala-spring/
 [2]: http://www.scalatest.org/
 [3]: http://www.scalatest.org/user_guide/selecting_a_style
