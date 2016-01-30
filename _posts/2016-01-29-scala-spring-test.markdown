@@ -239,8 +239,11 @@ TestFailedException was thrown during property evaluation. (ControllerPropertyTe
 </pre>
 As for me, there are 2 problems here: 1) message is too verbose 2) it failed on `1` and didn't go ahead to find that `2` is incorrect as well.
 
+The working examples of all code snippets mentioned in this article, you can find [here in my GitHub][6].
+
 [1]: /2016/01/02/scala-spring/
 [2]: http://www.scalatest.org/
 [3]: http://www.scalatest.org/user_guide/selecting_a_style
 [4]: https://github.com/maiflai/gradle-scalatest
 [5]: http://www.scalatest.org/user_guide/using_matchers
+[6]: https://github.com/dimafeng/dimafeng-examples/tree/master/scala_spring
