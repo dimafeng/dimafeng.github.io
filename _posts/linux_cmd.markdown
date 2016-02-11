@@ -24,3 +24,6 @@ http://files.fosswire.com/2007/08/fwunixref.pdf
 
 --- apt-cache show PACKAGE_NAME
 ---apt-cache search PACKAGE_NAME
+
+Stop and remove all containers
+docker stop $(docker ps -a -q) & docker rm $(docker ps -a -q)
