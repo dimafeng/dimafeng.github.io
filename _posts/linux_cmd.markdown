@@ -27,3 +27,5 @@ http://files.fosswire.com/2007/08/fwunixref.pdf
 
 Stop and remove all containers
 docker stop $(docker ps -a -q) & docker rm $(docker ps -a -q)
+
+cat ~/.ssh/id_rsa.pub | ssh USER@HOST "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys" - add ssh key
