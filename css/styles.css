@@ -384,3 +384,11 @@ pre {
   padding: 18px;
   border: 1px solid #564d4d;
 }
+
+kbd {
+  background: #fff;
+  color: #666;
+  font-size: 0.8em;
+  font-weight: 400;
+  border: 1px solid #888;
+}
