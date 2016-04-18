@@ -12,3 +12,5 @@ crontab -e
 
 
 grep -v - invert matching
+
+xargs -r
