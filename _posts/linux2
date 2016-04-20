@@ -14,3 +14,5 @@ crontab -e
 grep -v - invert matching
 
 xargs -r
+
+ssh -L 9000:localhost:5601 user@domain.com
