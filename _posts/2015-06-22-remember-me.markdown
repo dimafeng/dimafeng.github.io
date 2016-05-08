@@ -4,8 +4,8 @@ title:  "Remember me with Spring framework and Mongo DB"
 categories: java, spring mvc, mongo db, spring security
 ---
 Today I'm going to show you how to impelement remember-me functionality for spring mvc. I'll use persistant tokens which
-will be stored in mongodb (I work with mongo via spring data). This is useful approach when you start your application within a cluster. If one server is 
-down all clients will be redirected to another server, and this server can validate cookies using data of first server 
+will be stored in mongodb (I work with mongo via spring data). This is useful approach when you start your application within a cluster. If one server is
+down all clients will be redirected to another server, and this server can validate cookies using data of first server
 from database. If I used some of Relational database we whould use spring security built-in classes. Unfortunately, spring
 dosn't have such built-in solutions for mongo, but it has a lot of interfaces wich we can quickly implement and reach the
 same goal with almost the same effort.
@@ -35,9 +35,9 @@ public class Token extends PersistentRememberMeToken {
 }
 {% endhighlight %}
 
-`PersistentRememberMeToken` is basic class for token, it contains all required fields such as `username`, 
+`PersistentRememberMeToken` is basic class for token, it contains all required fields such as `username`,
 `series`, `tokenValue`, `date`. All fields declared as final, that's why we have to use `@PersistenceConstructor` annotaion
-otherwise a class should have default constructor. Another tricky appoach is the using @CompoundIndexes annotation to 
+otherwise a class should have default constructor. Another tricky appoach is the using @CompoundIndexes annotation to
 specify indexes, it's not oblivius way to add indexes, but we have to use it due to the fact that we cannot add
 annotations to parent class.
 
@@ -85,7 +85,9 @@ public class TokenService implements PersistentTokenRepository {
     @Override
     public void removeUserTokens(String username) {
         Token token = repository.findByUsername(username);
-        repository.save(token);
+        if (token != null) {
+            repository.delete(token);
+        }
     }
 }
 {% endhighlight %}
@@ -95,7 +97,7 @@ As you see, all operations with tokens go through our spring data repository. I 
 The last step is a connection of our repository with spring security config:
 
 {% highlight java %}
-	
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -103,7 +105,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     PersistentTokenRepository repository;
-		
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
