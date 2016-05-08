@@ -122,7 +122,7 @@ class WebSocketFrameHandler(group: ChannelGroup) extends SimpleChannelInboundHan
 
 As you see, we don't have many lines of code (thanks, scala!). Let's go through the all key parts of this code.
 There are two methods: the first one connects to default camera and starts capturing images (the details of this process won't be covered in this article), the second one starts a web server.
-To define a server, there is a special class `ServerBootstrap` which is a `ServerChannel` but git simplified interface for server creation. It provides builder-style approach for its configuration. Here are main configuration steps:
+To define a server, there is a special class `ServerBootstrap` which is a `ServerChannel` but with a simplified interface for server creation. It provides builder-style approach for its configuration. Here are main configuration steps:
 
 * `group` - takes two event loops, the firs one is for accepting incoming connections, the second one is for data processing
 * `channel` - takes a type of the channel that will be created
