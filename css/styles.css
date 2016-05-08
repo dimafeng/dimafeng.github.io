@@ -402,3 +402,20 @@ kbd {
   font-weight: 400;
   border: 1px solid #888;
 }
+
+.skills img{
+  width: 45px;
+  padding-top: 5px;
+}
+
+.skills {
+  font-size: 0.8em;
+}
+
+.skills h3 {
+  margin: 0;
+}
+
+.skills .row {
+  min-height: 100px;
+}
