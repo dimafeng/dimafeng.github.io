@@ -16,3 +16,5 @@ grep -v - invert matching
 xargs -r
 
 ssh -L 9000:localhost:5601 user@domain.com
+
+nmap -T5 -sP 192.168.239.0-255
