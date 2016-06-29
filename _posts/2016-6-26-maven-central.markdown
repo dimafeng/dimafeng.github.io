@@ -110,6 +110,16 @@ uploadArchives {
 
 This code allows publishing of releases and snapshots to *oss.sonatype.org*. You just need to adjust `pom.project` section to match your project information.
 
+And to make it all work, we need to modify `~/.gradle/gradle.properties` by adding a several properties:
+
+{% highlight properties %}
+signing.keyId=#keyId
+signing.password=#yourPassword
+signing.secretKeyRingFile=/Users/user/.gnupg/secring.gpg
+ossrhUsername=#Sonatype's JIRA username
+ossrhPassword=# password
+{% endhighlight %}
+
 More information on it is [here][6].
 
 ## Publishing
