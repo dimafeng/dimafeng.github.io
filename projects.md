@@ -4,6 +4,19 @@ title: Projects
 permalink: /projects/
 ---
 
+# Opensource contributions
+
+* [npm-check-updates](https://github.com/tjunnone/npm-check-updates/graphs/contributors)
+
+# My projects
+
+## Testcontainers-scala
+
+Scala wrapper for [testcontainers-java](https://github.com/testcontainers/testcontainers-java) that allows using docker containers for functional/integration testing.
+
+[GitHub project](https://github.com/dimafeng/testcontainers-scala)
+
+
 ## Spation
 **Proof of concept**. A service for [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). The project has been implemented from scratch exclusively by me, including interface design, architecture, html markup, etc.
 
