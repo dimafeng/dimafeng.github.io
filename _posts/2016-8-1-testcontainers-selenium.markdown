@@ -18,7 +18,7 @@ Here I'm going to show a simple example of selenium tests. Let's get it started.
 
 ## Assumptions
 
-* You know how to use SBT
+* ~~You know how to use SBT~~ You're able to copy and paste dependencies to your `build.sbt`
 * You use scala 2.11
 * You run all of these on java >8
 * You have docker installed on your machine
