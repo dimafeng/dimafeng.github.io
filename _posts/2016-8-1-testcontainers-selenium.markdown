@@ -2,6 +2,7 @@
 layout: post
 title:  "Integration testing using docker"
 categories: docker, selenium, scala
+image: testcontainers-scala.png
 ---
 
 A few weeks ago I published a post on Reddit where I [tried to advertise][2] my lib - [testcontainers-scala][1].
