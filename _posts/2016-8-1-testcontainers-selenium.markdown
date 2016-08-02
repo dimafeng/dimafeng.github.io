@@ -110,7 +110,7 @@ The tests case checks that after clicking on a first link in the list a user won
 
 I had a lot of problems with old fashioned approaches like Chrome/Firefox/Remote/etc. drivers running them locally and on CI servers, and I had a tough time with modern approaches like **phantom.js**. This seems much more reliable and convenient because:
 
-* **Test are reproducible:** if it fails on CI server it fails on your dev environment and visa verse.
+* **Tests are reproducible:** if it fails on CI server it fails on your dev environment and visa verse.
 * **Each test case is stateless:** you don't need to worry about cleaning cookies, local storage, etc. Each test works with its own clean browser.
 * **Easy to start in parallel:** since there's no state, you can run it in parallel.
 * **Simple troubleshooting:** if a test fails you can watch recorded video or fallback to local Chrome/Firefox drivers.
@@ -119,7 +119,7 @@ I had a lot of problems with old fashioned approaches like Chrome/Firefox/Remote
 <img style="width: 300px;" src="/assets/testcontainers-selenium/Shut-up-and-take-my-money.jpg" />
 </p>
 
-It's free and open-sourced - [github project with all instruction][1]. Your contributions are very welcome.
+It's free and open-sourced - [github project with all instructions][1]. Your contributions are very welcome.
 
 [1]: https://github.com/dimafeng/testcontainers-scala
 [2]: https://www.reddit.com/r/scala/comments/4s695y/use_docker_containers_for_testing_in_scala/
