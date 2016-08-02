@@ -21,6 +21,7 @@ Here I'm going to show a simple example of selenium tests. Let's get it started.
 * You know how to use SBT
 * You use scala 2.11
 * You run all of these on java >8
+* You have docker installed on your machine
 
 If all of those points are true then we're ready to write some code.
 
