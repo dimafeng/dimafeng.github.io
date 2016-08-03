@@ -1,0 +1,55 @@
+<div class="post-header">
+    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
+  <h1 class="post-title">{{ page.title }}</h1>
+</div>
+
+<article class="post-content">
+  {{ content }}
+
+  <div class="followme">
+    If you like this post and want to be kept posted on future publications then follow me on Twitter - <a href="https://twitter.com/dimafeng">@dimafeng</a>.
+  </div>
+
+
+  {% assign hasSimilar = '' %}
+  {% for post in site.posts %}
+      {% assign postHasSimilar = false %}
+      {% for tag in post.categories %}
+          {% for thisTag in page.categories %}
+              {% if postHasSimilar == false and hasSimilar.size < 6 and post != page and tag == thisTag %}
+                  {% if hasSimilar.size == 0 %}
+                  <h3>Related Posts</h3>
+                  <ul>
+                  {% endif %}
+                  <li class="relatedPost">
+                      <a href="{{ site.url }}{{ post.url }}">{{ post.title }}
+                      {% if post.series %}
+                          (Series: {{ post.series }})
+                      {% endif %}
+                      </a>
+                  </li>
+                  {% capture hasSimilar %}{{ hasSimilar }}*{% endcapture %}
+                  {% assign postHasSimilar = true %}
+              {% endif %}
+          {% endfor %}
+      {% endfor %}
+  {% endfor %}
+  {% if hasSimilar.size > 0 %}
+      </ul>
+  {% endif %}
+</article>
+
+  <div style="margin-top: 60px" id="disqus_thread"></div>
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = 'dimafeng'; // required: replace example with your forum shortname
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>

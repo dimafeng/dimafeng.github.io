@@ -1,7 +1,7 @@
 ---
 layout: hipster
 title:  "ClojureScript: Real world app"
-categories: clojurescript, om, react.js
+categories: clojurescript, clojure, om, react.js
 ---
 About 2 months ago I started learning clojure. Not too active - mostly on weekends. Recently, I wrote a [post](/2015/10/25/clojure-hello-world/) where I showed how easy is to build a small application connected to mongo db. Today I'm going to show you how to create a real world client-side application using clojurescript.
 

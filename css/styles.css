@@ -419,3 +419,9 @@ kbd {
 .skills .row {
   min-height: 100px;
 }
+
+.followme {
+  padding: 20px;
+  border: 1px solid #d75636;
+  font-size: 0.8em;
+}
