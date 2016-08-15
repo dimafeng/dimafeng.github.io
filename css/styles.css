@@ -51,8 +51,14 @@ header {
 }
 
 header .logo {
-    text-align: center;
-    display: none;
+  margin-top: 12px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: #d75636;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  margin-right: 20px;
+  display: block;
 }
 
 header .gotit {
@@ -95,6 +101,15 @@ footer .info h1 {
     font-weight: 400;
     font-size: 1.1em;
     color: #d75636;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    display: inline;
+}
+
+footer .heading {
+  margin: 40px 0 20px 0; 
 }
 
 footer .copy {
