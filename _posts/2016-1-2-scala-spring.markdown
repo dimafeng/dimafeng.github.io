@@ -327,7 +327,8 @@ Sometimes, custom annotations are very needed. In scala, this task isn't so triv
 The standard way to create aspects in spring doesn't work in all cases. For example, we haven't managed to create an aspect for a controller, but it works for services, though.
 
 **Workaround**: Use [`HandlerInterceptor`][6].
-**UPD**: We've solved this issue, in fact it's not even an issue. Please make sure, you use CGLIB proxies instead of java-proxies when your controller extends some traits.
+
+**UPD**: We've solved this issue, in fact it's not even an issue. Please make sure, you use CGLIB proxies instead of java-proxies when your controller extends any traits.
 
 ### @DBRef annotation
 
