@@ -92,4 +92,4 @@ Last few month, I've been dealing with Linux servers. I had experience with Linu
 
 * `docker stop $(docker ps -a -q) & docker rm $(docker ps -a -q)` - stops and removes all containers, sometimes may require `-f` to force deletion.
 * `docker volume rm $(docker volume ls -qf dangling=true)` - removes unused volumes
-* `docker rmi $(docker images | grep "^<none>" | awk "{print $3}")` - removes untagged images
+* `docker rmi $(docker images | grep "^<none>" | awk '{print $3}')` - removes untagged images
