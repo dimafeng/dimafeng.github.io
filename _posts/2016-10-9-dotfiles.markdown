@@ -117,7 +117,7 @@ $ dhelp
 
 ### .gitconfig
 
-If you work with multiple git accounts (e.g. you have github account and git account at your work) here's the trick - if you have the following lines in `.gitignore`
+If you work with multiple git accounts (e.g. you have github account and git account at your work) here's the trick - if you have the following lines in `.gitconfig`
 
 {% highlight ini %}
 [user]
