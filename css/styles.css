@@ -474,7 +474,16 @@ footer .social-links {
   font-size: 1.2em;
   font-family: 'Slabo 27px', serif;
 }
-.jssocials-share-link { border-radius: 50%; }
+.jssocials-share-link {
+  border-radius: 50%;
+}
+.jssocials-shares {
+  width: 50%;
+  margin: auto;
+  border-top: 2px solid #ccc;
+  padding-top: 20px;
+  margin-top: 50px;
+}
 #shareRoundIcons {
   text-align: center;
   font-size: 0.8em;
