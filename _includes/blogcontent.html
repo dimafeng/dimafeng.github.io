@@ -6,9 +6,21 @@
 <article class="post-content">
   {{ content }}
 
-  <div class="followme">
+  <!-- <div class="followme">
     If you like this post and want to be kept posted on future publications then follow me on Twitter - <a href="https://twitter.com/dimafeng">@dimafeng</a>.
-  </div>
+  </div> -->
+
+  <p id="shareRoundIcons">
+  </p>
+  <script>
+  $(function(){
+    $("#shareRoundIcons").jsSocials({
+      showLabel: false,
+      showCount: false,
+      shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
+    });
+  })
+  </script>
 
 
   {% assign hasSimilar = '' %}
@@ -18,15 +30,16 @@
           {% for thisTag in page.categories %}
               {% if postHasSimilar == false and hasSimilar.size < 6 and post != page and tag == thisTag %}
                   {% if hasSimilar.size == 0 %}
-                  <h3>Related Posts</h3>
-                  <ul>
+                  <h3 style="margin-bottom: 4px;margin-top: 15px;">Related Posts</h3>
+                  <ul class="related-post">
                   {% endif %}
-                  <li class="relatedPost">
+                  <li>
+                      {{ post.date | date: "%m/%d" }}
                       <a href="{{ site.url }}{{ post.url }}">{{ post.title }}
                       {% if post.series %}
                           (Series: {{ post.series }})
                       {% endif %}
-                      </a>
+                    </a>
                   </li>
                   {% capture hasSimilar %}{{ hasSimilar }}*{% endcapture %}
                   {% assign postHasSimilar = true %}

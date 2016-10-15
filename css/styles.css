@@ -3,7 +3,8 @@
 }
 
 .hipster .navbar-inner,
-.devops .navbar-inner {
+.devops .navbar-inner,
+.regular .navbar-inner {
       box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.75);
 }
 
@@ -92,7 +93,8 @@ footer {
 }
 
 .hipster footer,
-.devops footer {
+.devops footer,
+.regular footer {
   box-shadow: 0px -4px 8px 0px rgba(0,0,0,0.5);
 }
 
@@ -109,7 +111,7 @@ footer .info h1 {
 }
 
 footer .heading {
-  margin: 40px 0 20px 0; 
+  margin: 40px 0 20px 0;
 }
 
 footer .copy {
@@ -124,24 +126,9 @@ footer .copy {
     background-color: #333;
 }
 
-footer .social-links a {
-    color: #fff;
-    display: block;
-    margin: 2px
-}
-
 footer .logo img{
     padding-top: 40px;
     height: 200px;
-}
-
-footer .social-links a:hover {
-    text-decoration: none;
-    color: #d75636;
-}
-
-footer .social-links img {
-    width: 18px
 }
 
 #content {
@@ -382,8 +369,13 @@ body.hipster {
   background: url(../images/hipster-bg.jpg);
 }
 
+body.regular {
+  background: url(../images/regular-bg.jpg);
+}
+
 .devops #content .container,
-.hipster #content .container {
+.hipster #content .container,
+.regular #content .container {
   background-color: #fff;
   border-radius: 20px;
   padding-bottom: 30px;
@@ -438,5 +430,52 @@ kbd {
 .followme {
   padding: 20px;
   border: 1px solid #d75636;
+  font-size: 0.8em;
+}
+
+.related-post {
+  position: relative;
+  width: 124.7%;
+  left: -12.35%;
+  background: #333;
+  list-style-type: none;
+  padding: 20px 12%;
+  color: #888;
+  font-size: 0.8em;
+}
+
+.related-post a{
+  color: #fff;
+  font-family: 'Slabo 27px', serif;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.related-post a:hover{
+  text-decoration: underline;
+}
+
+.text-footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #bbb;
+}
+
+.menu-footer {
+  margin-top: 40px;
+}
+.menu-footer ul {
+  list-style-type: none;
+}
+.menu-footer a {
+  font-weight: bold;
+}
+footer .social-links {
+  font-size: 1.2em;
+  font-family: 'Slabo 27px', serif;
+}
+.jssocials-share-link { border-radius: 50%; }
+#shareRoundIcons {
+  text-align: center;
   font-size: 0.8em;
 }
