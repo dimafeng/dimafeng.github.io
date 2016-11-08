@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Integration testing using docker"
+title:  "Integration testing using docker and scala"
 categories: docker, selenium, scala
 image: testcontainers-scala.png
 ---
