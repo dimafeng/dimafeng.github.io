@@ -7,6 +7,7 @@ permalink: /projects/
 # Opensource contributions
 
 * [npm-check-updates](https://github.com/tjunnone/npm-check-updates/graphs/contributors)
+* [draft-js-export-html](https://github.com/sstur/draft-js-export-html)
 
 ---
 
