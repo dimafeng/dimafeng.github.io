@@ -160,7 +160,7 @@ The Two-Phase commit algorithm introduces two roles:
 * Leader (coordinator, master) - a node that a client writes to.
 * Acceptor (cohort, replica) - a node that all writes should be replicated to.
 
-This algorithm is very simple and relies on the assumption that network is reliable. There are one leader and one or multiple acceptors in the system. When a leader receives the date to write, it proposes the date to all acceptor and waits for a vote from all of them. An acceptor can accept or reject the value base on acceptor's state, then:
+This algorithm is very simple and relies on the assumption that network is reliable. There are one leader and one or multiple acceptors in the system. When a leader receives the data to write, it proposes the data to all acceptor and waits for a vote from all of them. An acceptor can accept or reject the value base on acceptor's state, then:
 
 * If all acceptors accepted the value, the leader sends a commit request.
 * If one or more of the acceptors failed, the leader sends a rollback request.
