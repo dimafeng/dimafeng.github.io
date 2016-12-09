@@ -1,5 +1,5 @@
 ---
-layout: devops
+layout: note
 title:  "Docker essentials"
 categories: docker
 ---

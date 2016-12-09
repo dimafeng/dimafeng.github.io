@@ -22,7 +22,7 @@
   })
   </script>
 
-
+  <div class="related-posts-block">
   {% assign hasSimilar = '' %}
   {% for post in site.posts %}
       {% assign postHasSimilar = false %}
@@ -50,6 +50,7 @@
   {% if hasSimilar.size > 0 %}
       </ul>
   {% endif %}
+</div>
 </article>
 
   <div style="margin-top: 60px" id="disqus_thread"></div>

@@ -14,3 +14,8 @@ markdown: kramdown
 permalink: /:year/:month/:day/:title/
 paginate: 10
 paginate_path: "/blog/page:num/"
+
+collections:
+  notes:
+    output: true
+    permalink: /notes/:year/:month/:day/:title/

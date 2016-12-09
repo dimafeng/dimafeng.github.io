@@ -1,0 +1,15 @@
+---
+layout: main
+---
+
+<div class="home articles-list">
+
+<h1>Notes</h1>
+
+{% assign sorted_notes = site.notes | sort: 'date' %}
+{% for note in sorted_notes reversed  %}
+
+    <h4>{{ note.date | date: "%Y/%m/%d" }} <a href="{{ note.url }}">{{ note.title }}</a></h4>
+{% endfor %}
+
+</div>

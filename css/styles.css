@@ -145,11 +145,17 @@ footer .logo img{
 }
 
 @media (min-width: 1200px) {
-    pre {
+    .body-with-background pre {
         position: relative;
         width: 130%;
         left: -15%;
     }
+}
+.related-posts-block {
+  display: none;
+}
+.body-with-background .related-posts-block {
+  display: block;
 }
 
 code, kbd, pre, samp { font-family: 'Source Code Pro',Menlo,Monaco,Consolas,"Courier New",monospace ; }
