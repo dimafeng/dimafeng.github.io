@@ -61,6 +61,7 @@ Last few month, I've been dealing with Linux servers. I had experience with Linu
 * `nslookup [domain]` - translates a domain name to an IP address, `nslookup [ip]`  - vice versa
 * `telnet [host] [port]` - connects to host:port by TCP
 * `iptables -L -n -v` - displays status of the firewall. `L` - list rules, `v` - verbose, `n` - shows ip addresses in numeric format
+* `nmap -O [host]` - shows all open ports on the host
 
 ### Netstat
 
