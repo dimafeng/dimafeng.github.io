@@ -1,0 +1,159 @@
+---
+layout: post
+title:  "5 drawbacks to liking SBT"
+categories: scala, sbt, gradle
+---
+I have an opensource project written in scala called [testcontainers-scala][1] (if your heart beats faster when you hear *docker*, be sure to click on the link). Several days ago I received a pull request that adds scala 2.12 support to my project. Sounds great, right? But unfortunately that broke scala 2.11's compatibility. To solve this issue, there is a quite standard solution in the scala world - [Cross-building][2]. I hadn't had much experience with
+**SBT** by that time and I had decided to give a try. In this post I'm going to show you what came of this.
+
+In the comments on Reddit for [my article about integration testing][14] in scala, somebody said:
+
+>Even though I "use" sbt I wouldn't exactly say I know to use it. All I do is copy and paste crap for the most part.
+
+I spent two days trying to replicate the functionality of my [Gradle script][3] using this *"copy and paste crap"* approach. I briefly read the official documentation, reviewed a lot of stackoverflow threads and after all I lost hope. Here's why:
+
+## 1. Speed
+
+SBT is super slow. Each time I run tests there were several preparation steps that were downloading and checking some random things.
+Subjectively, everything took at least 1.5 times more time than it took in the Gradle script (especially using the [Gradle daemon][10]).
+
+<p style="text-align: center;">
+<img src="http://i.giphy.com/3o6MbnqLhX5tJ5wNQQ.gif">
+</p>
+
+## 2. Project properties
+
+My gradle script reads properties from file and It's even a [built-in Gradle feature][4]. I have two properties files: a local one that is stored along with the project and a global one located in `~/.gradle`. If I want to override some property for a particular run, I can use `-D` and `-P` command line options.
+
+I needed the same in SBT. I googled it - [this is what I found][5].
+
+{% highlight scala %}
+import java.util.Properties
+
+val appProperties = settingKey[Properties]("The application properties")
+
+appProperties := {
+  val prop = new Properties()
+  IO.load(prop, new File("application.properties"))
+  prop
+}
+
+name := appProperties.value.getProperty("name")
+{% endhighlight %}
+
+Really? What do I do if I want to have both a local file for versions and a global one for my private data? What do I do if I want to override it via a command line option? - Code it!
+
+## 3. Test exclusion
+
+I have two type of tests: unit and integration. **Because the code base of the project is really small, I keep all of them in one sourceset `src/test/scala`** (I know - I know, it's not a good practice). But I cannot run integration tests every time I start a `test` task because **Travis-ci** doesn't allow me to run docker in my tests. In my gradle script, I do a simple trick:
+
+{% highlight groovy %}
+test {
+    exclude 'com/dimafeng/testcontainers/integration/**'
+}
+
+task integrationTest(type: Test) {
+    include 'com/dimafeng/testcontainers/integration/**'
+}
+{% endhighlight %}
+
+It's very simple and clear. If I had a bigger codebase I could also do:
+
+* Add an extra sourceset
+* Create a sub-module
+
+What do we have in SBT? - Tags. Ok, I found some examples [here][6] and [here][7]. Also, we need to modify a task `test` to make it exclude these tests and create a new one which works with only these. Here's the [documentation][8].
+
+<p style="text-align: center;">
+<img src="http://i.giphy.com/3o7TKrau6cMz9BhKRa.gif">
+</p>
+
+Wait, I'm lost, how to glue all of the pieces together? Where to find the missing ones?
+
+Maybe I can configure an additional sourceset or create a sub-module? - Yes, but you'll have to read the entire *"spaceship manual"*.
+
+## 4. Publishing to maven central
+
+My library should be published to maven central to be accessible by all build tools. I found a documentation - [Publishing][9].
+
+> There are two ways to specify credentials for such a repository. The first is to specify them inline:
+...
+The second and better way is to load them from a file, for example:
+
+{% highlight scala %}
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+{% endhighlight %}
+
+Wait, I thought there are no built-in tools to work with properties files. Oh, that works for credentials only.
+
+<p style="text-align: center;">
+<img src="http://i.giphy.com/l0MYrXilD8grSUNB6.gif">
+</p>
+
+I think I can live with that. What next? I need to sign my binaries. So here's my signing key. Where to put it?
+
+>Note: While it is general practice to drop the higher-order bits of 64-bit integer keys when passing ids around, the PGP plugin requires the full key id currently.
+
+Not a problem - `gpg --keyid-format LONG -k`
+
+{% highlight scala %}
+usePgpKeyHex("7cf8d72be29df322")
+{% endhighlight %}
+
+But I want to read my key from the properties file like this `usePgpKeyHex(appProperties.value.getProperty("signing.password"))`.
+
+<pre>
+build.sbt:82: error: `value` can only be used within a task or setting macro, such as :=, +=, ++=, Def.task, or Def.setting.
+usePgpKeyHex(appProperties.value.getProperty("signing.password"))
+                           ^
+[error] Type error in expression
+Project loading failed: (r)etry, (q)uit, (l)ast, or (i)gnore?
+</pre>
+
+<p style="text-align: center;">
+<img src="http://i.giphy.com/3o85xI1DBa3XAsOUxO.gif">
+</p>
+
+## 5. Releasing
+
+I don't like to keep complex manual procedures in mind - I automate everything. In Gradle, I have a [release plugin][11]. It's very simple and flexible. What it does:
+
+* Asks what version to release and updates the current version in the project properties
+* Tags the current git commit
+* Pushes the commits to upstream
+* Using gradle task dependencies, builds project, runs tests, uploads archives
+
+{% highlight bash %}
+$ ./gradlw release
+{% endhighlight %}
+
+That's it. It can't be easier. What we have in SBT? - [Painless release with SBT][12]
+
+Wait, do I need to write more code than I have in my libriry just to release? I'm not even sure that it can be blended with code I wrote on the previous steps - I don't even want to try otherwise I'll have to be debugging it for new two days. Let's leave it in the old-fashioned way - manually.
+
+<p style="text-align: center;">
+<img src="http://i.giphy.com/CmFMWpEa4IFtS.gif">
+</p>
+
+## Conclusion
+
+After two days I gave up. I didn't find any features in SBT which I don't have in Gradle. Afterwards, I implemented cross-building in my gragle scripts. It's less elegant but works well and doesn't break all what I had before.
+
+As for SBT, [It seems][13] I'm not the only one who struggles with it. I think, a build tool shouldn't be so complex and counter-intuitive. The lack of good documentation and good examples makes the quick start quite impossible. You can just sit and copy and paste from documentation and have something working in a few hours. All you need to do is dig and pray so that in 10 years you'll be lucky to get a *"Ph.D. in SBT"*. The current state of SBT doesn't look mature, all standard procedures which are built-in to maven or Gradle should be coded by yourself.
+
+So, I'll stick with Gradle.
+
+[1]: https://github.com/dimafeng/testcontainers-scala
+[2]: http://www.scala-sbt.org/0.13/docs/Cross-Build.html
+[3]: https://github.com/dimafeng/testcontainers-scala/blob/948f3ebcf9043ddf07e823d7fd9a831b1dbd080a/build.gradle
+[4]: https://docs.gradle.org/current/userguide/build_environment.html
+[5]: http://stackoverflow.com/questions/25665848/how-to-load-setting-values-from-a-java-properties-file
+[6]: http://www.scalatest.org/user_guide/using_scalatest_with_sbt
+[7]: http://stackoverflow.com/questions/10302458/excluding-a-scalatest-test-when-calling-my-tests-from-within-sbt
+[8]: http://www.scala-sbt.org/0.13/docs/Testing.html
+[9]: http://www.scala-sbt.org/0.13/docs/Publishing.html
+[10]: https://docs.gradle.org/current/userguide/gradle_daemon.html
+[11]: https://github.com/researchgate/gradle-release
+[12]: http://blog.byjean.eu/2015/07/10/painless-release-with-sbt.html
+[13]: https://www.reddit.com/r/scala/comments/5a6muj/sbt_makes_me_want_to_give_up_scala/
+[14]: /2016/08/01/testcontainers-selenium/

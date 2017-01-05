@@ -34,7 +34,7 @@ My name is Dmitry. I'm a professional software engineer with more than **6 years
       <div class="col-xs-10">
         <h3>Front-end</h3>
         <p>
-          JavaScript, HTML 5, Bootstrap, Angular, Gulp, Photoshop, Basic Design
+          JavaScript, TypeScript, HTML 5, Bootstrap, Angular 1, React.js, Gulp, Photoshop, Basics of Design
         </p>
       </div>
     </div>
@@ -98,4 +98,4 @@ My name is Dmitry. I'm a professional software engineer with more than **6 years
 
 </div>
 
-You can get example of my code on my [GitHub profile](https://github.com/dimafeng)
+You can see examples of my code on my [GitHub profile](https://github.com/dimafeng)

@@ -13,7 +13,9 @@ layout: main
     <ul>
     {% endif %}
 
+    {% if post.hidden != true %}
     <li><h3 class="type-{{ post.layout }}">{{ post.date | date: "%m/%d" }} <a href="{{ post.url }}">{{ post.title }}</a></h3></li>
+    {% endif %}
 
     {% if forloop.last %}
     </ul>
