@@ -119,6 +119,7 @@ public class UserService {
                 IntStream.range(0, count).forEach(i -> {
                     try {
                         preparedStatement.setString(1, "name");
+                        preparedStatement.executeUpdate();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
