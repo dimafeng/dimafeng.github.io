@@ -3,8 +3,8 @@ layout: post
 title:  "The magic of @Transactional and its performance"
 categories: spring, mysql, transactional, benchmark, spring data, jdbc
 ---
-I was planning to write a small article about the `rollbackFor` parameter for @Trnsactional annotation. But when I 
-was preparing the code examples, I decided to do some benchmarks. Let's start with the brief annotation description. 
+I was planning to write a small article about the `rollbackFor` parameter for @Trnsactional annotation. But when I
+was preparing the code examples, I decided to do some benchmarks. Let's start with the brief annotation description.
 
 ## @Transactional
 
@@ -18,15 +18,15 @@ public void operation() {
 {% endhighlight %}
 
 This is pretty convenient - you don't need to think about direct transactions management and exceptions handling.
-Everything will be done automatically in the proxy class. This image 
-(from [spring documentation](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/transaction.html)) show how class 
+Everything will be done automatically in the proxy class. This image
+(from [spring documentation](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/transaction.html)) show how class
 hierarchy looks like:
 
 <p>
 <img src="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/images/tx.png" />
 </p>
 
-So, it looks pretty clear. [JavaDoc](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html) 
+So, it looks pretty clear. [JavaDoc](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html)
 about this annotation is always there and gives enough information to get started. But there's one unclear thing with
 exception handling - here's an example:
 
@@ -38,7 +38,7 @@ public void operation() {
 }
 {% endhighlight %}
 
-Will it be commited? - Yes, it will! 
+Will it be commited? - Yes, it will!
 
 <p>
 <img width="300" src="http://vignette2.wikia.nocookie.net/epicrapbattlesofhistory/images/5/59/Stare-What-GIF.gif/revision/latest?cb=20140928165911"/>
@@ -46,10 +46,10 @@ Will it be commited? - Yes, it will!
 
 The documentation says:
 
->Although EJB container default behavior automatically rolls back the transaction on a system exception 
-(usually a runtime exception), EJB CMT does not roll back the transaction automatically on anapplication 
-exception (that is, a checked exception other than java.rmi.RemoteException). While the Spring default 
-behavior for declarative transaction management follows EJB convention (roll back is automatic only on 
+>Although EJB container default behavior automatically rolls back the transaction on a system exception
+(usually a runtime exception), EJB CMT does not roll back the transaction automatically on anapplication
+exception (that is, a checked exception other than java.rmi.RemoteException). While the Spring default
+behavior for declarative transaction management follows EJB convention (roll back is automatic only on
 unchecked exceptions), it is often useful to customize this behavior.
 >
 > [Spring Documentation](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/transaction.html#transaction-declarative)
@@ -67,7 +67,7 @@ public void operation() {
 
 ## Benchmarking
 
-Now it's clear. Let's check how much we pay for the AOP magic. 
+Now it's clear. Let's check how much we pay for the AOP magic.
 I wrote 4 simple methods to compare performance of **insert** operations using different ways to manage transactions and ORM layers:
 
 {% highlight java %}
@@ -151,7 +151,7 @@ public class UserService {
 It runs in Spring Boot project with the default configuration. You can check the source code of this benchmark out on [github](https://github.com/dimafeng/dimafeng-examples) (`gradlew transactional:run`). That's what I've got:
 
 <p>
-<img src="{{ site.url }}/assets/transactional.png" class="img-responsive">
+<img src="/assets/transactional1.png" class="img-responsive">
 </p>
 
 This chart shows the best execution time from 20 attempts for 100, 1000, and 10000 inserts. As you see, **@Transactional + Spring Data** works almost the same as working with **EntityManager** directly. For 10000 inserts, the time difference between **@Transactional** and **EntityManager** was 250ms - it's 4% of total execution time, and it's much less than the difference between pure **JDBC** and **EntitiyManager**.  
