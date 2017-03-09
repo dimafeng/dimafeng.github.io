@@ -8,6 +8,7 @@ permalink: /projects/
 
 * [npm-check-updates](https://github.com/tjunnone/npm-check-updates/graphs/contributors)
 * [draft-js-export-html](https://github.com/sstur/draft-js-export-html)
+* [ts-rx-rest](https://github.com/FundCount/ts-rx-rest)
 
 ---
 

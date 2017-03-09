@@ -6,7 +6,7 @@ permalink: /about/
 
 # About
 
-My name is Dmitry. I'm a professional software engineer with more than **7 years** of production experience. I hold a master's degree in **CS**. And I do programming 24/7.
+My name is Dmitry. I'm a professional software engineer with more than **7 years** of production experience. I hold a master's degree in **CS** and I do programming 24/7.
 
 ## Skills
 
@@ -99,3 +99,5 @@ My name is Dmitry. I'm a professional software engineer with more than **7 years
 </div>
 
 You can see examples of my code on my [GitHub profile](https://github.com/dimafeng)
+
+My CV is available upon [request](/contacts/).
