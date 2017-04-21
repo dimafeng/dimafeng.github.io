@@ -4,7 +4,7 @@ title:  "Distributed systems cheat sheet"
 categories: cap, distributed systems, replication, sharding, paxos, raft
 ---
 
-For last year, I've been dealing with multiple distributed systems and suffering from a lack of structured understanding of how it all work under the hood. This post aims to break the subject down into small parts and
+Since last year, I've been dealing with multiple distributed systems and suffering from a lack of structured understanding of how it all work under the hood. This post aims to break the subject down into small parts and
 aggregate multiple sources and links I found useful. It covers mostly distributed data storage systems but some concepts may be applied to other types of systems.
 
 <div class="disclaimer">
