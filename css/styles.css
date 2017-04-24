@@ -162,7 +162,7 @@ code, kbd, pre, samp { font-family: 'Source Code Pro',Menlo,Monaco,Consolas,"Cou
 .highlight pre { background: url(../images/head-main-bg.jpg); }
 .highlight  { /*background: #272822;*/ color: #f8f8f2 }
 .highlight .c { color: #75715e } /* Comment */
-.highlight .err { color: #960050; background-color: #1e0010 } /* Error */
+.highlight .err { color: #960050; } /* Error */
 .highlight .k { color: #86A3B7 } /* Keyword */
 .highlight .l { color: #ae81ff } /* Literal */
 .highlight .n { color: #C4D3D7 } /* Name */
@@ -329,11 +329,26 @@ blockquote {
   border-left: 5px solid #9f6868;
 }
 
+#content .note {
+    background: #f6fff7;
+    padding: 20px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    border-left: 5px solid #188a09;
+}
+
 #content .disclaimer h1 {
   font-size: 1.1em;
   font-family: 'Roboto', sans-serif;
   margin: 0;
   color: rgb(171, 91, 91);
+}
+
+#content .note h1 {
+  font-size: 1.1em;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  color: rgb(54, 134, 70);
 }
 
 #content table > thead > tr > th,
