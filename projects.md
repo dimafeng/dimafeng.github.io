@@ -22,6 +22,14 @@ Scala wrapper for [testcontainers-java](https://github.com/testcontainers/testco
 
 ---
 
+## L3rt
+
+Simple alerting application for your distributed infrastructure.
+
+[GitHub project](https://github.com/l3rt/l3rt)
+
+---
+
 ## Containerized-tasks
 
 Gradle plugin that allows to launch tasks inside docker containers.
