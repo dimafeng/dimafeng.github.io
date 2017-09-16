@@ -16,7 +16,7 @@ permalink: /projects/
 
 ## Testcontainers-scala
 
-<img width="200" src="https://github.com/testcontainers/testcontainers-scala/blob/master/logo.png />
+<img width="200" src="https://github.com/testcontainers/testcontainers-scala/blob/master/logo.png" />
 
 Scala wrapper for [testcontainers-java](https://github.com/testcontainers/testcontainers-java) that allows using docker containers for functional/integration testing.
 
@@ -26,7 +26,7 @@ Scala wrapper for [testcontainers-java](https://github.com/testcontainers/testco
 
 ## L3rt
 
-<img width="200" src="https://github.com/l3rt/l3rt/raw/master/lert.png />
+<img width="200" src="https://github.com/l3rt/l3rt/raw/master/lert.png" />
 
 Simple alerting application for your distributed infrastructure.
 
