@@ -27,6 +27,7 @@ Scala wrapper for [testcontainers-java](https://github.com/testcontainers/testco
 ## L3rt
 
 <img width="200" src="https://github.com/l3rt/l3rt/raw/master/lert.png" />
+<img style="max-width: 100%;" src="https://github.com/l3rt/l3rt/blob/master/UI.png" />
 
 Simple alerting application for your distributed infrastructure.
 
