@@ -3,7 +3,7 @@ layout: devops
 title:  "Flexible alerting for ELK"
 categories: docker, scala, elk, elasticsearch, logstash
 ---
-For the past month, I've been working on my pet project - [l3rt](https://github.com/l3rt/l3rt). It's a very flexible alternative to [Elastalert](https://github.com/Yelp/elastalert). The main idea was to replace `yml` configurations with Groovy DSL and create some simple web UI to create and debug rules. In this post, I'm going to show you what I've got so far. 
+For the past month, I've been working on my pet project - [L3rt](https://github.com/l3rt/l3rt). It's a very flexible alternative to [Elastalert](https://github.com/Yelp/elastalert). The main idea was to replace `yml` configurations with Groovy DSL and create some simple web UI to create and debug rules. In this post, I'm going to show you what I've got so far. 
 
 <div class="disclaimer">
 <h1>Disclaimer</h1>
@@ -223,6 +223,6 @@ Since we have our rule done, we would want to start using it in background. To d
 
 * If you practice Infrastructure-As-Code approach, you would probably prefer to mount existing folder with rules to your container. It's easy to do - just mount it to `/l3rt/rules/`
 * Take a look at other rules. For now, I have got just one more - [Count Rule](https://github.com/l3rt/l3rt/blob/master/docs/elasticsearchCountRule.md)
-* Contribute your fixes or features
+* [Contribute your fixes or features](https://github.com/l3rt/l3rt)
 
 You can find the configured docker compose file used in the article in [this github project](https://github.com/l3rt/docker-elk).
