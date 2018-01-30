@@ -27,8 +27,8 @@ Last few month, I've been dealing with Linux servers. I had experience with Linu
 ## Output manipulations
 
 * `grep [keyword]` - leaves only lines contain keyword, `grep -E "[regex]"` works with regular expressions
-* `awk "{print $1}"` - prints the first column of the output
-* `awk "{[program]}"` - executes Perl-like script
+* `awk '{print $1}'` - prints the first column of the output
+* `awk '{[program]}'` - executes Perl-like script
 * `sort -bf` - sorts output line by line. `b` - ignore leading blanks, `f` - ignore case, `h` - human sort, `r` - reverse
 * `tail [file]` - shows the last part of a file. `f` - monitors a file for updates, `-n [N]`, `-[N]` - prints last N lines
 * `head` - opposite to `tail`
