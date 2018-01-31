@@ -6,9 +6,10 @@ permalink: /projects/
 
 # Opensource contributions
 
-* [npm-check-updates](https://github.com/tjunnone/npm-check-updates/graphs/contributors)
-* [draft-js-export-html](https://github.com/sstur/draft-js-export-html)
-* [ts-rx-rest](https://github.com/FundCount/ts-rx-rest)
+* [npm-check-updates ★ 3555 ⧗ 124](https://github.com/tjunnone/npm-check-updates)
+* [draft-js-export-html ★ 447 ⧗ 141](https://github.com/sstur/draft-js-export-html)
+* [ts-rx-rest ★ 7 ⧗ 0](https://github.com/FundCount/ts-rx-rest)
+* [testcontainers-java ★ 914 ⧗ 161](https://github.com/testcontainers/testcontainers-java)
 
 ---
 
