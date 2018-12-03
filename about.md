@@ -6,7 +6,7 @@ permalink: /about/
 
 # About
 
-My name is Dmitry. I'm a professional software engineer with more than **7 years** of production experience. I hold a master's degree in **CS** and I do programming 24/7.
+My name is Dmitry. I'm a Software Engineer and Software Manager with **9 years** of production experience in building scalable enterprise/cloud systems. I hold a master's degree in **CS** and I do programming 24/7.
 
 ## Skills
 
@@ -20,7 +20,7 @@ My name is Dmitry. I'm a professional software engineer with more than **7 years
       <div class="col-xs-10">
         <h3>Back-end</h3>
         <p>
-          Java, Scala, Node.js, Spring Framework, Vaadin, Mysql, MongoDB
+          Java, Scala, Node.js
         </p>
       </div>
     </div>
@@ -43,12 +43,12 @@ My name is Dmitry. I'm a professional software engineer with more than **7 years
   <div class="col-md-6">
     <div class="row">
       <div class="col-xs-2">
-        <img src="/assets/icons_about/mobile.png">
+        <img src="/assets/icons_about/database.png">
       </div>
       <div class="col-xs-10">
-        <h3>Mobile</h3>
+        <h3>Database</h3>
         <p>
-          Apache Cordova, Ionic framework
+          MySql, Postgres, MongoDB, ElasticSearch, neo4j, Cassandra
         </p>
       </div>
     </div>
@@ -62,7 +62,7 @@ My name is Dmitry. I'm a professional software engineer with more than **7 years
       <div class="col-xs-10">
         <h3>DevOps</h3>
         <p>
-          Linux, Ansible, Docker
+          Linux, Ansible, Docker, Kubernetes, AWS
         </p>
       </div>
     </div>
@@ -74,9 +74,9 @@ My name is Dmitry. I'm a professional software engineer with more than **7 years
         <img src="/assets/icons_about/integration.png">
       </div>
       <div class="col-xs-10">
-        <h3>Integration</h3>
+        <h3>Soft skills</h3>
         <p>
-          Liferay, Jira
+          Team leadership, Scrum, Hiring, Mentoring
         </p>
       </div>
     </div>
@@ -90,7 +90,7 @@ My name is Dmitry. I'm a professional software engineer with more than **7 years
       <div class="col-xs-10">
         <h3>Practices</h3>
         <p>
-          Microservices, Code review, TDD, Continuous Integration/Deployment/Delivery, Functional Programming, Software architecture
+          Microservices, TDD, CI/CD, Functional Programming, Software architecture
         </p>
       </div>
     </div>
