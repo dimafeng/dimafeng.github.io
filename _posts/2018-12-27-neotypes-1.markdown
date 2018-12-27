@@ -1,0 +1,173 @@
+---
+layout: post
+title:  "neotypes (Part 1): Akka-http + neo4j"
+categories: neo4j, akka-http
+---
+I haven't been writing posts for a while and this is going to be my first blog post for this year. Today, I'm going to introduce you to my most recent pet project - [neotypes][1].
+
+We're going to be talking about graph databases today. If you're not familiar with graph databases and neo4j particularly, please check [this article][2]. 
+
+I’ve been using neo4j for about a year now and I absolutely love it. Of course, it’s not a silver bullet but it’s something new that helps to model your domain on a completely different level. Since I also love Scala and functional programming, I was missing a “native” Scala driver. So I decided to build it by myself.
+
+**neotypes** is a Scala lightweight, type-safe, asynchronous driver (not opinionated on side-effect implementation) for neo4j. Let’s break this sentence down into distinct properties of this driver.
+
+* **Scala** - the driver provides you with support for all standard Scala types without the need to convert Scala <-> Java types back and forth and you can easily add your types.
+* **Lightweight** - the driver depends on `shapeless` and `neo4j Java driver`
+* **Type-safe** - the driver leverages [typeclasses](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html) to derive all needed conversions at the compile time.
+* **Asynchronous** - the driver sits on top of [asynchronous Java driver](https://neo4j.com/blog/beta-release-java-driver-async-api-neo4j/).
+* **Not opinionated on side-effect implementation** - you can use it with any implementation of side-effects of your chose (scala.Future, cats-effect
+ IO, Monix Task, etc)
+
+Ok, let's jump to a real example.
+
+## Akka-http + neo4j
+
+We will be building a sample application using **Akka-http** as a web server and **neo4j** as a database. **Akka-http** is pretty popular framework in Scala ecosystem for building http applications such as sites, http APIs, microservices, etc. **Akka** and **Akka-http** are based on `scala.concurrent.Future`, so using a neo4j Java driver would be a challenge. What you would do is you would deal with tons of `java.util.concurrent.CompletionStage` to `scala.concurrent.Future` conversion and try to map query outputs to your domain classes manually. **neotypes** offers a better approach.
+
+Our application is going to be a movie catalog based on the Movie graph dataset which comes with neo4j. There is an [existing application][3] built by neo4j team as an example of java driver usage. So we can rewrite it to Scala.
+
+### Environment configuration
+
+To start, we need a neo4j instance to run our queries against. I'm a docker fan, so we going to use a docker compose to run my local instance of the database.
+
+My `docker-compose.yml` looks as follows
+
+{% highlight yml %}
+neo4j:
+  image: neo4j:3.5.0
+  ports:
+   - "7474:7474"
+   - "7687:7687"
+  volumes:
+   - ./db/dbms:/data/dbms
+{% endhighlight %}
+
+Execute `docker-compose up` to start the database. After it's up and running, go to http://localhost:7474/browser/ and execute `:play movie-graph` in the query window. Now we have the sample data.
+
+If you run a query `MATCH p=()-->() RETURN p LIMIT 25`, you will see something similar to:
+
+<p style="text-align: center;">
+<img src="/assets/neotypes1/movie-graph.png">
+</p>
+
+### Data access layer
+
+One of the queries that we want to run is to find a movie cast by its title. The query that is used in [java application][3] looks as follows:
+
+```
+MATCH (movie:Movie {title: $title})
+       OPTIONAL MATCH (movie)<-[r]-(person:Person)
+       RETURN movie.title as title, 
+              collect({name:person.name, job:head(split(lower(type(r)),'_')), role:head(r.roles)}) as cast
+       LIMIT 1
+```
+
+We need to come up with a model that the result of this query will be mapped to. We could use anonymous types such as `Tuple` or `HList` but it's easier to map the result to a case class and then convert it to json object as-is. In our case, we can use these two case classes:
+
+{% highlight scala %}
+case class Cast(name: String, job: String, role: String)
+case class MovieCast(title: String, cast: List[Cast])
+{% endhighlight %}
+
+Since the query output has aliases for each element, they will be mapped to corresponding fields of a case class.
+
+Now we can write some queries using **neotypes**. For simplicity, a service layer is incapsulating both business logic and data access logic (do not do it this way in your production code). 
+
+{% highlight scala %}
+import neotypes.Driver
+import neotypes.exaple.akkahttp.MovieService.MovieToActor
+import neotypes.implicits._
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
+class MovieService(driver: Driver[Future]) {
+
+  def findMovie(title: String): Future[Option[MovieCast]] = driver.readSession { session => 
+    c"""MATCH (movie:Movie {title: $title})
+       OPTIONAL MATCH (movie)<-[r]-(person:Person)
+       RETURN movie.title as title, 
+              collect({name:person.name, job:head(split(lower(type(r)),'_')), role:head(r.roles)}) as cast
+       LIMIT 1""".query[Option[MovieCast]].single(session)
+  }
+
+  ...
+}
+{% endhighlight %}
+
+Let's take a look at this code. In order to access neo4j, we need to obtain an instance of a Driver. For modularity and testing purposes, the driver is injected via the constructor. As you can see, we're passing an instance of `neotypes.Driver` parametrized by `[Future]` which means that we're using `neotypes` wrapper for `org.neo4j.driver.v1.Driver` and all side effects will be encapsulated in `scala.concurrent.Future`s.
+
+`neotypes.Driver` has a very handy method `readSession` (and the same `write` alternative) for automatic resource management. Using this method, you don't need to think about session closing as well as transaction commits/rollbacks - it's all done by the library.
+
+`c"""MATCH (movie:Movie {title: $title})...` is [custom string interpolator][4]. It means that `$title` is not regular interpolation. **neotypes** converts all variables used in a query into [neo4j supported types][5] and passes values via statement parameters so that the actual query will look like `MATCH (movie:Movie {title: $p1})...` and the actual title value will be passed as `p1 -> [value]`
+
+Now we're coming to the magic part. `query[Option[MovieCast]]` defines our mapping. As you can see, we haven't explicitly specified the mapping rules because **neotypes** can infer those rules for you. Wrapping of your target type into `Option` helps us to deal with no result cases.
+
+### Akka-http
+
+Let's now define a simple router. Our goal is to handle `/movie/[movie name]` urls.
+
+{% highlight scala %}
+class MovieRoute(movieService: MovieService)(implicit executionContext: ExecutionContext) {
+ 
+  val route = pathPrefix("movie") {
+    pathPrefix(Segment) { title =>
+      pathEndOrSingleSlash {
+        get {
+          complete(movieService.findMovie(title).map {
+            case Some(movie) =>
+              OK -> movie.asJson
+            case None =>
+              BadRequest -> None.asJson
+          })
+        }
+      }
+    }
+  }
+}
+{% endhighlight %}  
+
+it’s pretty straightforward. Since we’re dealing with scala *Future*s, we don’t need to convert our service layer output, we just map it to a proper http response.
+
+### Wrap it up
+
+Now we just need to glue everything together.
+
+{% highlight scala %}
+val driver = GraphDatabase.driver(config.database.url, AuthTokens.basic(config.database.username, config.database.password)).asScala[Future]
+
+val movieService = new MovieService(driver)
+val httpRoute = new MovieRoute(movieService)
+
+Http().bindAndHandle(httpRoute.route, config.http.host, config.http.port)
+{% endhighlight %}    
+
+In the beginning, we create regular `org.neo4j.driver.v1.Driver`, and then wrap it into **neotypes** `Driver` by using `.asScala[Future]` method. That's it!
+
+To demonstrate the application, we can use `curl` to call endpoints.
+
+```
+$ curl http://localhost:9000/movie/The%20Matrix
+
+{"title":"The Matrix","cast":[{"name":"Emil Eifrem","job":"acted","role":"Emil"},{"name":"Joel Silver","job":"produced","role":"null"},{"name":"Lana Wachowski","job":"directed","role":"null"},{"name":"Lilly Wachowski","job":"directed","role":"null"},{"name":"Hugo Weaving","job":"acted","role":"Agent Smith"},{"name":"Laurence Fishburne","job":"acted","role":"Morpheus"},{"name":"Carrie-Anne Moss","job":"acted","role":"Trinity"},{"name":"Keanu Reeves","job":"acted","role":"Neo"}]}%
+```
+
+I also borrowed a UI part of [the java sample application][3] so that you can enjoy a nice looking visual representation.
+
+<p style="text-align: center;">
+<img src="/assets/neotypes1/ui.png">
+</p>
+
+## Conclusion
+
+As you could see, **neotypes** drastically simplifies interaction with neo4j from Scala. If you want to learn more and help the project, please:
+
+1. Star the project on GitHub - [https://github.com/neotypes/neotypes](https://github.com/neotypes/neotypes)
+2. Read the official documentation - [https://neotypes.github.io/neotypes/docs.html](https://neotypes.github.io/neotypes/docs.html)
+3. Check the sources of the application we built today - [https://github.com/neotypes/examples](https://github.com/neotypes/examples)
+
+[1]: https://neotypes.github.io/neotypes/
+[2]: https://neo4j.com/developer/graph-database/
+[3]: https://github.com/neo4j-examples/neo4j-movies-java-bolt
+[4]: https://docs.scala-lang.org/overviews/core/string-interpolation.html
+[5]: https://neotypes.github.io/neotypes/docs/types.html
