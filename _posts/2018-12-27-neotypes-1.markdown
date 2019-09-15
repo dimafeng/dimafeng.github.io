@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "neotypes (Part 1): Akka-http + neo4j"
+title:  "neotypes: Akka-http + neo4j"
 categories: neo4j, akka-http
 ---
 I haven't been writing posts for a while and this is going to be my first blog post for this year. Today, I'm going to introduce you to my most recent pet project - [neotypes][1].
